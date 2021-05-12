@@ -1,70 +1,143 @@
-# Getting Started with Create React App
+#  KryptoBalance
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Project description:
 
-## Available Scripts
+KryptoBalance is an app that allows users to create the perfect environment to keep track of their investments in crypto currency. The available tools such as graphics, conversions, history and alerts simplifies and connects all information in one single board.
+ 
+The user has right in hand all the needed information of all his investments in one place. 
 
-In the project directory, you can run:
+## User stories:
 
-### `yarn start`
+#### Must Have
+- a user can create an account 
+- a user can sign in
+- a user has a profile
+- a user can edit it’s profile
+- a user can logout
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- a user can add a coin
+- a user can edit a coin
+- a user can delete a coin
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
+### Nice to have
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- user: 
+  - user can set alerts
+  - user can add favorite coins
+  - user can follow the growth of investment
+  
+  
+## Model Schemas:
 
-### `yarn build`
+``` 
+User = {
+    email: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String, 
+        required: true
+    },
+    image: String,
+    coins: [
+        user: ObjectId
+    ],
+    timestamps
+} 
+``` 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+``` 
+Coin = {
+    name: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    purchaseDate: Date,
+    amount: Decimal128,
+    user: [
+        coin: ObjectId
+    ],
+    timestamps
+}
+``` 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+	
+## Model relationships:
 
-### `yarn eject`
+```
+--------                ---------
+| User | -(1)------(1)- | Coin |
+--------                --------- 
+                            |
+                           (1)
+                            |
+                            |
+                           (n)
+                            | 
+                        ---------
+                        | ////  |
+                        ---------
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Route planning:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### public routes
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### session handling
+-  get ‘/’ => landing page
+-  get ‘/about’ => get about page
+-  get ‘/signin’ => get signin form
+-  post ‘/signin’ => signin in and create session
+-  get ‘/signup’ => get signup form
+-  post ‘/signup’ => create user and session
+-  post ‘/logout’ => delete session
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### user private routes
 
-## Learn More
+#### view and edit user profile
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- get ‘/profile’ => show profile
+- get ‘/profile/edit’ => edit user information - form 
+- patch ‘/profile/update’ => update user - information
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### create a coin
 
-### Code Splitting
+- get ‘/dashboard’ => show dashboard
+- get '/coin/add' => get add coin form
+- get ‘/coin/edit’ => edit coin information - form 
+- patch ‘/profile/update’ => update coin - information
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+#### display a coin
 
-### Analyzing the Bundle Size
+- get ‘/coin’ => show coinIndex page
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+#### add a favorite coin
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- post ‘/favorite’ => add favorite
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### create an alert
 
-### Deployment
+- post ‘/favorite’ => add favorite
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `yarn build` fails to minify
+## Links
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [Kanban Board](https://trello.com/b/NGUWZUic/cryptobalance)
+
+- [Git Repository](https://github.com/rebecaconte/kryptobalance-client)
+
+- [Wireframes](https://whimsical.com/DdCYUuCuSbtVSXuxmh8aci)
+
+- [API](https://www.coingecko.com/en/api)
+
