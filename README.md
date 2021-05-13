@@ -46,9 +46,6 @@ User = {
         required: true
     },
     image: String,
-    coins: [
-        user: ObjectId
-    ],
     timestamps
 } 
 ``` 
@@ -62,9 +59,7 @@ Coin = {
     },
     purchaseDate: Date,
     amount: Decimal128,
-    user: [
-        coin: ObjectId
-    ],
+    user: ObjectId,
     timestamps
 }
 ``` 
@@ -75,10 +70,10 @@ Coin = {
 
 ```
 --------                ---------
-| User | -(1)------(1)- | Coin |
+| User | -(n)------(1)- | Coin |
 --------                --------- 
                             |
-                           (1)
+                           (n)
                             |
                             |
                            (n)

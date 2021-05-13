@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from "react-router-dom";
-import HomePage from "./components/HomePage";
+import AboutUs from "./components/AboutUs"
 import NotFound from "./components/404Page/NotFound";
 
 
@@ -12,7 +12,11 @@ class App extends Component {
     return (
       <div>
         <Switch>
-          <HomePage />
+         
+
+          <Route path="/aboutus" render={() => {
+            return <AboutUs />
+          }} />
 
           <Route path="/" component={NotFound} />
 
