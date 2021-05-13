@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
 
 class SignUp extends Component {
+
     render() {
+
+        const { onSubmit } = this.props
+
         return (
-            <form >
+            <form onSubmit={onSubmit}>
                 <div>
                     <label>Username</label>
                     <input type="text" name="username" />

@@ -6,7 +6,7 @@ class AboutUs extends Component {
         return (
             <div>
                 <div>
-                    <img src="../public/logokbalance.png"/>
+                    <img alt="logo" src="../public/logokbalance.png"/>
                 </div>
 
                 <div>

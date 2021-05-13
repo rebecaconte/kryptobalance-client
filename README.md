@@ -128,7 +128,7 @@ Coin = {
 
 ## Links
 
-- [Kanban Board](https://trello.com/b/NGUWZUic/cryptobalance)
+- [Kanban Board](https://trello.com/b/NGUWZUic/kryptobalance)
 
 - [Git Repository](https://github.com/rebecaconte/kryptobalance-client)
 
