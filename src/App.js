@@ -4,9 +4,6 @@ import AboutUs from "./components/AboutUs"
 import NotFound from "./components/404Page/NotFound";
 
 
-
-
-
 class App extends Component {
   render() {
     return (
