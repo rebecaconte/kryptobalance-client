@@ -61,6 +61,10 @@ class App extends Component {
             return <Dashboard />
           }} />
 
+          <Route path="/profile" render={() => {
+            return <CoinDetails />
+          }} />
+
           <Route path="/dashboard/coin" render={() => {
             return <CoinDetails />
           }} />
