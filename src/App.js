@@ -9,7 +9,9 @@ import SignUp from "./components/users/SignUp";
 import Dashboard from "./components/dashboard/Dashboard";
 import CoinDetails from "./components/dashboard/CoinDetails";
 import Profile from "./components/users/Profile";
+import MyNavbar from "./components/MyNavbar";
 import NotFound from "./components/404Page/NotFound";
+
 
 
 class App extends Component {
@@ -45,6 +47,7 @@ class App extends Component {
     return (
       <div>
         <Switch>
+          <MyNavbar />
 
           <Route exact path="/signup" render={() => {
             return <SignUp onSubmit={this.handleSignUp} />
@@ -66,8 +69,7 @@ class App extends Component {
             return <CoinDetails />
           }} />
 
-
-          <Route path="/profile" render={() => {
+          <Route exact path="/profile" render={() => {
             return <Profile />
           }} />
 
