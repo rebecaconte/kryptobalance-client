@@ -11,30 +11,26 @@ import NotFound from "./components/404Page/NotFound";
 
 class App extends Component {
 
-
   state = {
-  
     user: null
-    
   }
-
 
   handleSignUp = (e) => {
     e.preventDefault()
-    const {username, email , password} = e.target
+    const { username, email, password } = e.target
     let newUser = {
-      username: username.value, 
-      email: email.value, 
+      username: username.value,
+      email: email.value,
       password: password.value
     }
-    
-    axios.post(`${config.API_URL}/api/signup`, newUser, {withCredentials: true})
+
+    axios.post(`${config.API_URL}/api/signup`, newUser, { withCredentials: true })
       .then((response) => {
-          this.setState({
-            user: response.data 
-          }, () => { 
-              this.props.history.push('/dashboard')
-          })
+        this.setState({
+          user: response.data
+        }, () => {
+          this.props.history.push('/dashboard')
+        })
       })
       .catch(() => {
         console.log('SignUp failed')
@@ -42,26 +38,25 @@ class App extends Component {
   }
 
 
-
-
-
   render() {
     return (
       <div>
         <Switch>
 
-       
-
           <Route exact path="/signup" render={() => {
-            return <SignUp onSubmit={this.handleSignUp}  />
+            return <SignUp onSubmit={this.handleSignUp} />
           }} />
 
           <Route exact path="/signin" render={() => {
             return <SignIn />
           }} />
 
-          <Route path="/aboutus" render={() => {
+          <Route path="/about" render={() => {
             return <AboutUs />
+          }} />
+
+          <Route path="/aboutus" render={() => {
+            return <Dashboard />
           }} />
 
           <Route path="/" component={NotFound} />
