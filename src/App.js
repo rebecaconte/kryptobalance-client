@@ -6,6 +6,8 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import AboutUs from "./components/AboutUs";
 import SignIn from "./components/users/SignIn";
 import SignUp from "./components/users/SignUp";
+import Dashboard from "./components/dashboard/Dashboard";
+import CoinDetails from "./components/dashboard/CoinDetails";
 import NotFound from "./components/404Page/NotFound";
 
 
@@ -55,8 +57,12 @@ class App extends Component {
             return <AboutUs />
           }} />
 
-          <Route path="/aboutus" render={() => {
+          <Route path="/dashboard" render={() => {
             return <Dashboard />
+          }} />
+
+          <Route path="/dashboard/coin" render={() => {
+            return <CoinDetails />
           }} />
 
           <Route path="/" component={NotFound} />
