@@ -8,6 +8,7 @@ import SignIn from "./components/users/SignIn";
 import SignUp from "./components/users/SignUp";
 import Dashboard from "./components/dashboard/Dashboard";
 import CoinDetails from "./components/dashboard/CoinDetails";
+import Profile from "./components/users/Profile";
 import NotFound from "./components/404Page/NotFound";
 
 
@@ -57,17 +58,19 @@ class App extends Component {
             return <AboutUs />
           }} />
 
-          <Route path="/dashboard" render={() => {
+          <Route exact path="/dashboard" render={() => {
             return <Dashboard />
           }} />
 
-          <Route path="/profile" render={() => {
+          <Route exact path="/dashboard/:idcoin/" render={() => {
             return <CoinDetails />
           }} />
 
-          <Route path="/dashboard/coin" render={() => {
-            return <CoinDetails />
+
+          <Route path="/profile" render={() => {
+            return <Profile />
           }} />
+
 
           <Route path="/" component={NotFound} />
 
