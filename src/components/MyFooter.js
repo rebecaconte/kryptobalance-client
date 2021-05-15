@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom'
 class MyFooter extends Component {
     render() {
         return (
-            <footer className="MyFooter">
-                <div className="container">
+            <footer className="MyFooter shadow">
+                <div className="FooterContainer">
 
                     <div className="text-muted">
-                        <span className="text-muted"> About us</span>
+                        <span className="text-muted"> About Us</span>
                         <span className="text-muted"> Contact</span>
                         
                         <span className="text-muted"> Sign In</span>
@@ -19,8 +19,6 @@ class MyFooter extends Component {
                 </div>
             </footer>
         )
-
-
     }
 }
 

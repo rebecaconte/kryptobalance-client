@@ -3,23 +3,66 @@ import './App.css';
 import axios from 'axios';
 import config from './config';
 import { Switch, Route, withRouter } from "react-router-dom";
+import HomePage from "./components/HomePage";
 import AboutUs from "./components/AboutUs";
 import SignIn from "./components/users/SignIn";
 import SignUp from "./components/users/SignUp";
 import Dashboard from "./components/dashboard/Dashboard";
 import CoinDetails from "./components/dashboard/CoinDetails";
 import Profile from "./components/users/Profile";
-import MyNavbar from "./components/MyNavbar";
-import MyFooter from "./components/MyFooter";
 import NotFound from "./components/404Page/NotFound";
 
 
 
 class App extends Component {
-
   state = {
-    user: null
+    dateOfPurchase: "28-09-1987",
+    graphData: [],
+    user: "benny"
   }
+
+  postCoinPurchaseHistory = (e) => {
+    e.preventDefault()
+    const { name, purchaseDate, amount } = e.target
+
+    let newCoinPurchase = {
+      name: name.value,
+      purchaseDate: purchaseDate.value,
+      amount: amount.value,
+      user: this.state.user
+    }
+
+    axios.post(`${config.API_URL}/api/coin/add`, newCoinPurchase)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((e) => {
+        console.log('Adding coin failed:', e)
+      })
+  }
+
+  getCoinGraphData = async () => {
+
+    try {
+      const coinResponse = await fetch(`${config.API_URL}/api/coin/all`);
+      const response = await coinResponse.json();
+
+      this.setState({
+        graphData: response.data.data
+      });
+
+      console.log(response);
+
+    } catch (e) {
+      console.log("Error during getCoinGraphData: ", e);
+    }
+  };
+
+  componentDidMount() {
+    this.getCoinGraphData();
+  }
+
+
 
   handleSignUp = (e) => {
     e.preventDefault()
@@ -48,8 +91,10 @@ class App extends Component {
     return (
       <div>
         <Switch>
-         
-          
+
+          <Route exact path="/" render={() => {
+            return <HomePage />
+          }} />
 
           <Route exact path="/signup" render={() => {
             return <SignUp onSubmit={this.handleSignUp} />
@@ -82,10 +127,9 @@ class App extends Component {
         </Switch>
       </div>
     )
+
   }
+
 }
-
-
-
 
 export default withRouter(App);
