@@ -5,16 +5,16 @@ import { Link } from 'react-router-dom'
 class MyFooter extends Component {
     render() {
         return (
-            <footer className="MyFooter shadow">
+            <footer className="MyFooter ">
                 <div className="FooterContainer">
 
                     <div className="text-muted">
-                        <span className="text-muted"> About Us</span>
-                        <span className="text-muted"> Contact</span>
-                        
-                        <span className="text-muted"> Sign In</span>
-                        <span className="text-muted"> Sign Up</span>
+                        <Link to="/about" className="text-muted"> About Us</Link>
+                        <Link to="/about"className="text-muted"> Contact</Link>
+                    </div>
 
+                    <div>
+                    {/*social media icons*/}
                     </div>
                 </div>
             </footer>

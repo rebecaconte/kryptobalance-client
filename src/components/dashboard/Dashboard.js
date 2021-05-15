@@ -6,6 +6,8 @@ class Dashboard extends Component {
             <div>
                 <div>
                     <p>add coin</p>
+                                
+
                     <p>button add coin</p>
                 </div>
 

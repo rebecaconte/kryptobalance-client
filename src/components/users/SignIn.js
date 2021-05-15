@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 
 class SignIn extends Component {
     render() {
+        const { onSignIn } = this.props
         return (
-            <form >
+            <form onSubmit={onSignIn}>
                 <div >
                     <label >Email address</label>
                     <input type="email" name="email" />
