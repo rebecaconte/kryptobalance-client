@@ -12,6 +12,7 @@ import CoinDetails from "./components/dashboard/CoinDetails";
 import Profile from "./components/users/Profile";
 import NotFound from "./components/404Page/NotFound";
 import MyNavbar from "./components/MyNavbar";
+import EditProfile from "./components/users/EditProfile";
 
 
 class App extends Component {
@@ -119,6 +120,10 @@ class App extends Component {
 
           <Route exact path="/profile" render={() => {
             return <Profile />
+          }} />
+
+          <Route exact path="/profile/:edit/" render={() => {
+            return <EditProfile />
           }} />
 
 
