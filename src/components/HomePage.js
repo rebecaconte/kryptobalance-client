@@ -16,7 +16,8 @@ class HomePage extends Component {
             purchaseDate: ''
         },
         graphData: [],
-        graphDataLoaded: false
+        graphDataLoaded: false,
+        amountGrowth: 0
     }
 
     handleGrowthName = (event) => {
@@ -26,6 +27,14 @@ class HomePage extends Component {
 
         this.setState({
             growth: cloneGrowth
+        })
+    }
+
+    handleAmountGrowth = (growth) => { 
+        growth = growth.toFixed(2)
+
+        this.setState({
+            amountGrowth: growth
         })
     }
 
@@ -79,7 +88,7 @@ class HomePage extends Component {
     }
 
     render() {
-        const { graphData } = this.state
+        const { graphData, amountGrowth } = this.state
         const graphDataLoaded = this.state.graphDataLoaded
 
         return (
@@ -125,9 +134,14 @@ class HomePage extends Component {
 
                                     <Col>
                                         <p>GROWTH:</p>
-                                            <div>
-                                                <Graph graphData={graphData} />);
-                                            </div>
+                                        { 
+                                            amountGrowth > 0 ? 
+                                            <Col>
+                                                {amountGrowth}
+                                            </Col>
+                                            :
+                                            <div></div>
+                                        }
                                     </Col>
 
                                     <Col>
@@ -135,7 +149,7 @@ class HomePage extends Component {
                                         { 
                                             graphDataLoaded ? 
                                             <div>
-                                                <Graph graphData={graphData} />);
+                                                <Graph graphData={graphData}  handleAmountGrowth={this.handleAmountGrowth} />
                                             </div>
                                             :
                                             <div></div>

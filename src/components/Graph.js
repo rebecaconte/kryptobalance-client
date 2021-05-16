@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { AreaChart, Area, XAxis, YAxis, Tooltip } from "recharts";
-import dayjs from "dayjs";
 
 class Graph extends Component {
 
@@ -8,7 +7,6 @@ class Graph extends Component {
     coinAmount: 0,
     totalInvested: 0,
     dataArr: null,
-    amountGrowth: 0,
 
     styles: {
       container: {
@@ -27,9 +25,9 @@ class Graph extends Component {
   }
 
   buildGraph = () => {
-    const { graphData } = this.props
-
-    const coinAmount  = graphData.amountInvested / graphData[0][1];
+    const { graphData, handleAmountGrowth } = this.props
+    
+    const coinAmount = graphData.amountInvested / graphData[0][1];
     let array = [];
 
     for (let i = 0; i < graphData.length; i++) {
@@ -46,9 +44,10 @@ class Graph extends Component {
     }
 
     this.setState({
-      dataArr: array,
-      amountGrowth: array[array.length - 1].Total
+      dataArr: array
     })
+
+    handleAmountGrowth(array[array.length - 1].Total)
   }
 
   componentDidMount() {

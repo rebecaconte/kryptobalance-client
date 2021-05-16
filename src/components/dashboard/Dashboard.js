@@ -4,13 +4,16 @@ import config from '../../config';
 import AddCoin from './AddCoin';
 import Graph from './Graph';
 import dayjs from "dayjs";
-
+import { Alert, Form, Row, Col, Card, Accordion, Button } from 'react-bootstrap';
 
 class Dashboard extends Component {
 
     state = {
         showModal : false,
-        graphData: []
+        graphData: [],
+        graphDataLoaded: false,
+        coinAmount: 0,
+        coinName: ''
     }
 
     constructor() {
@@ -49,33 +52,38 @@ class Dashboard extends Component {
       }
 
       buildGraph = () => {
-        const { graphData } = this.props
-    
+        const { graphData } = this.state
+
         let coinAmount = 0;
         let totalInvested = 0;
         let array = [];
-    
-        for (let i = 0; i < graphData.length; i++) {
-    
-          const coinPrice = graphData[i].price.eur;
-          coinAmount += graphData[i].amountInvested / coinPrice;
-          totalInvested += graphData[i].amountInvested;
-    
-          const total = coinAmount * coinPrice;
-          const date = dayjs(graphData[i].purchaseDate).format("MM/DD/YYYY");
-    
-          array.push({
-            TotalInvested: totalInvested,
-            CoinAmount: coinAmount,
-            CoinPrice: coinPrice,
-            Total: total,
-            date: date
-          });
+
+        if(graphData.length) {
+      
+          for (let i = 0; i < graphData.length; i++) {
+      
+            const coinPrice = graphData[i].price.eur;
+            coinAmount += graphData[i].amountInvested / coinPrice;
+            totalInvested += graphData[i].amountInvested;
+      
+            const total = coinAmount * coinPrice;
+            const date = dayjs(graphData[i].purchaseDate).format("MM/DD/YYYY");
+      
+            array.push({
+              TotalInvested: totalInvested,
+              CoinAmount: coinAmount,
+              CoinPrice: coinPrice,
+              Total: total,
+              date: date
+            });
+          }
+      
+          this.setState({
+            dataArr: array,
+            graphDataLoaded: true,
+            coinAmount: coinAmount
+          })
         }
-    
-        this.setState({
-          dataArr: array
-        })
       }
 
       getCoinGraphData = async () => {
@@ -87,32 +95,74 @@ class Dashboard extends Component {
           this.setState({
             graphData: response
           });
-    
+          
         } catch (e) {
           console.log("Error during getCoinGraphData: ", e);
         }
       };
     
       componentDidMount() {
-        this.getCoinGraphData();
+        this.getCoinGraphData().then(() => {
+          this.buildGraph();
+        })
       }
     
 
       
     render() {
 
-        const { graphData } = this.state
+        const { graphData, coinAmount } = this.state
+        const graphDataLoaded = this.state.graphDataLoaded
 
         return (
             <div>
                 <div>
-                    <AddCoin addCoin={this.postCoinPurchaseHistory} show={this.state.show} handleClose={this.hideModal} />
-                    <Graph buildGraph={this.buildGraph} graphData={graphData} />
-                    
+
+                <Accordion defaultActiveKey="0">
+                  <Card>
+                    <Accordion.Toggle as={Card.Header} eventKey="0">
+                    { 
+                      graphDataLoaded ? 
+                      <div>
+                        <img src={graphData[0].image} alt={graphData[0].name} /> {graphData[0].name}  {coinAmount}
+                      </div>
+                      : 
+                      <div></div>
+                    }
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey="0">
+                      <Card.Body>
+                        { 
+                          graphDataLoaded ? 
+                          <div>
+                                <Graph buildGraph={this.buildGraph} graphData={graphData} />
+                          </div>
+                          :
+                          <div></div>
+                        }
+    
+                  </Card.Body>
+                    </Accordion.Collapse>
+                  </Card>
+                  <Card>
+                    <Accordion.Toggle as={Card.Header} eventKey="1">
+                      Click me!
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey="1">
+                      <Card.Body>Hello! I'm another body</Card.Body>
+                    </Accordion.Collapse>
+                  </Card>
+                </Accordion>
+
+                  <AddCoin addCoin={this.postCoinPurchaseHistory} show={this.state.show} handleClose={this.hideModal} />
+
                 </div>
+
+                
                 <button type="button" onClick={this.showModal}>
-          AddCoin
-        </button>
+
+                  + Coin
+                </button>
 
                 <div>
                     <p>total value of investments</p>
