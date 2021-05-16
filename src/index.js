@@ -9,8 +9,7 @@ import MyFooter from "./components/MyFooter"
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      
+    <BrowserRouter>  
       <App />
       <MyFooter />
     </BrowserRouter>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, NavDropdown, Dropdown } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 class MyNavbar extends Component {
 
@@ -16,7 +15,7 @@ class MyNavbar extends Component {
                         <Navbar.Brand href="/">KryptoBalance</Navbar.Brand>
                         <Nav className="mr-auto">
 
-                        <img src="./logokbalance.png" class="nav-profile-img" alt="user-avatar"/>
+                        <img src="./logokbalance.png" className="nav-profile-img" alt="user-avatar"/>
 
                             <NavDropdown title="" id="dropdown-menu-align-right" >                             
                                 <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>

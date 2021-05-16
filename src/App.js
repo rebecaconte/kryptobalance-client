@@ -12,11 +12,6 @@ import CoinDetails from "./components/dashboard/CoinDetails";
 import Profile from "./components/users/Profile";
 import NotFound from "./components/404Page/NotFound";
 import MyNavbar from "./components/MyNavbar";
-import Graph from './components/dashboard/Graph';
-import AddCoin from './components/dashboard/AddCoin';
-
-
-
 
 
 class App extends Component {
@@ -24,11 +19,8 @@ class App extends Component {
     user: null,
     error: null,
     fetchingUser: true,
-    dateOfPurchase: "28-09-1987",
-    graphData: [],
-    showModal: false
+    dateOfPurchase: "28-09-1987"
   }
-
 
 
   handleSignUp = (e) => {
@@ -92,81 +84,18 @@ class App extends Component {
       })
   }
 
-  constructor() {
-    super();
-    this.showModal = this.showModal.bind(this);
-    this.hideModal = this.hideModal.bind(this);
-  }
-
-  showModal = () => {
-    this.setState({ show: true });
-  };
-
-  hideModal = () => {
-    this.setState({ show: false });
-  };
-
-  postCoinPurchaseHistory = (e) => {
-    e.preventDefault()
-    const { name, purchaseDate, amountInvested, currencyUsed } = e.target
-
-    let newCoinPurchase = {
-      name: name.value,
-      purchaseDate: purchaseDate.value,
-      amountInvested: amountInvested.value,
-      currencyUsed: currencyUsed.value,
-      user: this.state.user
-    }
-
-    axios.post(`${config.API_URL}/api/coin/add`, newCoinPurchase)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((e) => {
-        console.log('Adding coin failed:', e)
-      })
-  }
-
-  getCoinGraphData = async () => {
-
-    try {
-      const coinResponse = await fetch(`${config.API_URL}/api/coin/history/all`);
-      const response = await coinResponse.json();
-
-      this.setState({
-        graphData: response
-      });
-
-    } catch (e) {
-      console.log("Error during getCoinGraphData: ", e);
-    }
-  };
-
-  componentDidMount() {
-    this.getCoinGraphData();
-  }
-
-
   render() {
 
-    const { graphData, user, error, fetchingUser } = this.state
+    const { user, error } = this.state
 
     return (
       <div>
         <MyNavbar onSignin={this.handleSignIn} user={user} />
 
-        <AddCoin addCoin={this.postCoinPurchaseHistory} show={this.state.show} handleClose={this.hideModal} />
-        <Graph graphData={graphData} />
-
-        <button type="button" onClick={this.showModal}>
-          AddCoin
-        </button>
-
         <Switch>
 
-
-          <Route exact path="/" render={() => {
-            return <HomePage />
+          <Route exact path="/" render={(routeProps) => {
+            return <HomePage {...routeProps} />
           }} />
 
           <Route exact path="/signup" render={() => {
@@ -184,7 +113,6 @@ class App extends Component {
           <Route exact path="/dashboard" render={() => {
             return <Dashboard />
           }} />
-
           <Route exact path="/dashboard/:idcoin/" render={() => {
             return <CoinDetails />
           }} />

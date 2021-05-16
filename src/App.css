@@ -73,3 +73,18 @@ body {
   display: flex;
   text-align: center;
 }
+
+
+/**** HOME PAGE ****/
+
+.logoHomePage{
+  display: flex;
+  align-content: flex-end;
+
+}
+
+.alertMessage {
+  width: 200px;
+  height: 50px;
+  font-size: 12px;
+}
