@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import dayjs from "dayjs";
 import { AreaChart, Area, XAxis, YAxis, Tooltip } from "recharts";
+import dayjs from "dayjs";
 
 class Graph extends Component {
 
@@ -8,7 +8,7 @@ class Graph extends Component {
     coinAmount: 0,
     totalInvested: 0,
     dataArr: null,
-    once: true,
+    amountGrowth: 0,
 
     styles: {
       container: {
@@ -29,35 +29,30 @@ class Graph extends Component {
   buildGraph = () => {
     const { graphData } = this.props
 
-    let coinAmount = 0;
-    let totalInvested = 0;
+    const coinAmount  = graphData.amountInvested / graphData[0][1];
     let array = [];
 
     for (let i = 0; i < graphData.length; i++) {
-
-      const coinPrice = graphData[i].price.eur;
-      coinAmount += graphData[i].amountInvested / coinPrice;
-      totalInvested += graphData[i].amountInvested;
-
+      
+      const coinPrice = graphData[i][1];
       const total = coinAmount * coinPrice;
-      const date = dayjs(graphData[i].purchaseDate).format("MM/DD/YYYY");
+      const date = new Date(graphData[i][0]).toLocaleDateString("en-US");
 
       array.push({
-        TotalInvested: totalInvested,
         CoinAmount: coinAmount,
-        CoinPrice: coinPrice,
         Total: total,
         date: date
-      });
+      });    
     }
 
     this.setState({
-      dataArr: array
+      dataArr: array,
+      amountGrowth: array[array.length - 1].Total
     })
   }
 
   componentDidMount() {
-    this.buildGraph();
+      this.buildGraph();
   }
 
   render() {
@@ -66,6 +61,8 @@ class Graph extends Component {
     if(!dataArr) {
       return <p>Loading Graph . . . </p>
     }
+
+    // TODO: Make the currency dynamic! it is static here
 
     return (
       <div>
@@ -88,31 +85,15 @@ class Graph extends Component {
               fill="#55efc4"
               yAxisId="right"
               activeDot={{ strokeWidth: 0 }}
-            />
+            />  
             <Area
               type="linear"
               dataKey="Total"
               stroke="none"
-              fillOpacity={0.6}
-              fill="#f7931a"
+              fillOpacity={0.8}
+              fill="#cf55c8"
               activeDot={{ strokeWidth: 0 }}
-            />
-            <Area
-              type="linear"
-              dataKey="TotalInvested"
-              stroke="none"
-              fillOpacity={0.6}
-              fill="#3498db"
-              activeDot={{ strokeWidth: 0 }}
-            />
-            <Area
-              type="linear"
-              dataKey="CoinPrice"
-              stroke="none"
-              fillOpacity={0.6}
-              fill="#e84393"
-              activeDot={{ strokeWidth: 0 }}
-            />
+            />  
           </AreaChart>
         </div>
       </div>

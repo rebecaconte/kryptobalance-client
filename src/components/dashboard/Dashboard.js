@@ -3,6 +3,7 @@ import axios from 'axios';
 import config from '../../config';
 import AddCoin from './AddCoin';
 import Graph from './Graph';
+import dayjs from "dayjs";
 
 
 class Dashboard extends Component {
@@ -47,7 +48,35 @@ class Dashboard extends Component {
           })
       }
 
-
+      buildGraph = () => {
+        const { graphData } = this.props
+    
+        let coinAmount = 0;
+        let totalInvested = 0;
+        let array = [];
+    
+        for (let i = 0; i < graphData.length; i++) {
+    
+          const coinPrice = graphData[i].price.eur;
+          coinAmount += graphData[i].amountInvested / coinPrice;
+          totalInvested += graphData[i].amountInvested;
+    
+          const total = coinAmount * coinPrice;
+          const date = dayjs(graphData[i].purchaseDate).format("MM/DD/YYYY");
+    
+          array.push({
+            TotalInvested: totalInvested,
+            CoinAmount: coinAmount,
+            CoinPrice: coinPrice,
+            Total: total,
+            date: date
+          });
+        }
+    
+        this.setState({
+          dataArr: array
+        })
+      }
 
       getCoinGraphData = async () => {
 
@@ -78,7 +107,7 @@ class Dashboard extends Component {
             <div>
                 <div>
                     <AddCoin addCoin={this.postCoinPurchaseHistory} show={this.state.show} handleClose={this.hideModal} />
-                    <Graph graphData={graphData} />
+                    <Graph buildGraph={this.buildGraph} graphData={graphData} />
                     
                 </div>
                 <button type="button" onClick={this.showModal}>
