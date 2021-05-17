@@ -18,6 +18,7 @@ body {
 .MyNavBar{
   display: flex;
   flex-direction: row;
+ 
 
 } 
 
@@ -27,6 +28,7 @@ body {
   align-self: center;
   justify-content: center;
   justify-content: space-between;
+  
 }
 
 .nav-menu {
@@ -34,6 +36,7 @@ body {
   flex-direction: column;
   align-self: center;
   justify-content: flex-end;
+  
 }
 
 
@@ -48,11 +51,13 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  
+  
 }
 
 .navbar-nav{
   right: 60px;
-  position: absolute;
+  position: fixed;
 }
 
 
@@ -90,4 +95,38 @@ body {
   width: 200px;
   height: 50px;
   font-size: 12px;
+}
+
+/**** DASHBOARD ****/
+
+.firstLevelDashboard{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin: 20px 40px 20px 50px;
+  
+}
+
+.secondLevelDashboard{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin-bottom: 70px ;
+
+}
+
+.dashboardAccordeon{
+  width: 600px;
+ 
+}
+
+.totalInvGraph{
+  width: 250px;
+
 }

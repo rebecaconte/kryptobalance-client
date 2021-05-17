@@ -20,6 +20,17 @@ class HomePage extends Component {
         amountGrowth: 0
     }
 
+    //to display the growth since purchase in the users preferred currency 
+    handleAmountGrowth = (growth) => {
+        growth = growth.toFixed(2)
+
+        this.setState({
+            amountGrowth: growth
+        })
+    }
+
+
+    //grab from the form info about the name of coin invested
     handleGrowthName = (event) => {
         let text = event.target.value
         let cloneGrowth = JSON.parse(JSON.stringify(this.state.growth))
@@ -30,14 +41,7 @@ class HomePage extends Component {
         })
     }
 
-    handleAmountGrowth = (growth) => { 
-        growth = growth.toFixed(2)
-
-        this.setState({
-            amountGrowth: growth
-        })
-    }
-
+    //grab from the form info about the amount invested
     handleGrowthAmountInvested = (event) => {
         let text = event.target.value
         let cloneGrowth = JSON.parse(JSON.stringify(this.state.growth))
@@ -48,6 +52,7 @@ class HomePage extends Component {
         })
     }
 
+    //grab from the form info about the currency used
     handleGrowthCurrencyUsed = (event) => {
         let text = event.target.value
         let cloneGrowth = JSON.parse(JSON.stringify(this.state.growth))
@@ -58,6 +63,7 @@ class HomePage extends Component {
         })
     }
 
+    //grab from the form info about the purchase date
     handleGrowthPurchaseDate = (event) => {
         let text = event.target.value
         let cloneGrowth = JSON.parse(JSON.stringify(this.state.growth))
@@ -68,13 +74,14 @@ class HomePage extends Component {
         })
     }
 
+    //display info in the main graph 
     showGrowth = (growth) => {
         console.log(growth);
         const { name, currencyUsed, purchaseDate, amountInvested } = growth
 
         axios.get(`${config.API_URL}/api/coin/growth/${name}/${currencyUsed}/${purchaseDate}`, {}, { withCredentials: true })
             .then((response) => {
-                console.log(response);
+                //console.log(response);
                 response.data.data.data.prices.amountInvested = amountInvested;
 
                 this.setState({
@@ -86,6 +93,7 @@ class HomePage extends Component {
                 console.log(e)
             })
     }
+
 
     render() {
         const { graphData, amountGrowth } = this.state
@@ -134,25 +142,25 @@ class HomePage extends Component {
 
                                     <Col>
                                         <p>GROWTH:</p>
-                                        { 
-                                            amountGrowth > 0 ? 
-                                            <Col>
-                                                {amountGrowth}
-                                            </Col>
-                                            :
-                                            <div></div>
+                                        {
+                                            amountGrowth > 0 ?
+                                                <Col>
+                                                    {amountGrowth}
+                                                </Col>
+                                                :
+                                                <div></div>
                                         }
                                     </Col>
 
                                     <Col>
 
-                                        { 
-                                            graphDataLoaded ? 
-                                            <div>
-                                                <Graph graphData={graphData}  handleAmountGrowth={this.handleAmountGrowth} />
-                                            </div>
-                                            :
-                                            <div></div>
+                                        {
+                                            graphDataLoaded ?
+                                                <div>
+                                                    <Graph graphData={graphData} handleAmountGrowth={this.handleAmountGrowth} />
+                                                </div>
+                                                :
+                                                <div></div>
                                         }
 
 
