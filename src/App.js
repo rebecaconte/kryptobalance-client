@@ -20,7 +20,7 @@ class App extends Component {
     user: null,
     error: null,
     fetchingUser: true,
-    dateOfPurchase: "28-09-1987"
+    dateOfPurchase: "28-09-1987",
   }
 
 
@@ -60,7 +60,7 @@ class App extends Component {
           user: response.data,
           error: null
         }, () => {
-          this.props.history.push('/dasboard')
+          this.props.history.push('/dashboard')
         })
       })
       .catch((errorObj) => {
@@ -76,6 +76,8 @@ class App extends Component {
       .then(() => {
         this.setState({
           user: null
+        }, () => {
+          this.props.history.push('/')
         })
       })
       .catch((errorObj) => {
@@ -85,18 +87,38 @@ class App extends Component {
       })
   }
 
+  componentDidMount() {
+    axios.get(`${config.API_URL}/api/user`, {withCredentials: true}) 
+        .then((response) => {
+          this.setState({ 
+            user: response.data,
+            fetchingUser: false,
+          })
+        })
+        .catch((errorObj) => {
+          this.setState({
+            error: errorObj.data,
+            fetchingUser: false,
+          })
+        })
+  }
+
   render() {
 
-    const { user, error } = this.state
+    const { user, error, fetchingUser } = this.state
+
+    if(fetchingUser){
+      return <p>Loading . . . </p>
+    }
 
     return (
       <div>
-        <MyNavbar onSignin={this.handleSignIn} user={user} />
+        <MyNavbar onSignin={this.handleSignIn} onLogout={this.handleLogout} user={user} />
 
         <Switch>
 
-          <Route exact path="/" render={(routeProps) => {
-            return <HomePage {...routeProps} />
+          <Route exact path="/" render={() => {
+            return <HomePage />
           }} />
 
           <Route exact path="/signup" render={() => {
@@ -112,18 +134,18 @@ class App extends Component {
           }} />
 
           <Route exact path="/dashboard" render={() => {
-            return <Dashboard />
+            return <Dashboard user={user} />
           }} />
           <Route exact path="/dashboard/:idcoin/" render={() => {
-            return <CoinDetails />
+            return <CoinDetails user={user} />
           }} />
 
           <Route exact path="/profile" render={() => {
-            return <Profile />
+            return <Profile user={user} />
           }} />
 
           <Route exact path="/profile/:edit/" render={() => {
-            return <EditProfile />
+            return <EditProfile user={user} />
           }} />
 
 

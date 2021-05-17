@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { Form, Col, Button, ButtonGroup, Row, Image } from 'react-bootstrap';
-
+import {Link, Redirect} from 'react-router-dom'
 
 class EditProfile extends Component {
     render() {
+        const { user } = this.props
+
+        if(!user){
+            return <Redirect to={'/signin'} />
+        }
+
         return (
             <div>  
                

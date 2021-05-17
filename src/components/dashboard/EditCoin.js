@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
+import {Link, Redirect} from 'react-router-dom'
 
 class EditCoin extends Component {
     render() {
+        const { user } = this.props
+
+        if(!user){
+            return <Redirect to={'/signin'} />
+        }
+
         return (
             <div>
                 <div>

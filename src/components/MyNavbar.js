@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import {Link, Redirect} from 'react-router-dom'
 
 class MyNavbar extends Component {
 
@@ -18,8 +19,8 @@ class MyNavbar extends Component {
                         <img src="./logokbalance.png" className="nav-profile-img" alt="user-avatar"/>
 
                             <NavDropdown title="" id="dropdown-menu-align-right" >                             
-                                <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-                                <NavDropdown.Item href="/dashboard">Dashboard</NavDropdown.Item>
+                                <NavDropdown.Item><Link to="/profile" user={user}>Profile</Link></NavDropdown.Item>
+                                <NavDropdown.Item><Link to="/dashboard" user={user}>Dashboard</Link></NavDropdown.Item>
                                 <NavDropdown.Item href="/about">Contact</NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <button onClick={onLogout}>Logout</button>
