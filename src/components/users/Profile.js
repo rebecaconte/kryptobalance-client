@@ -35,13 +35,12 @@ class Profile extends Component {
 
                         <Form.Group controlId="formGroupEmail">
                             <Form.Label>username</Form.Label>
-                            <Form.Control type="text" placeholder="Enter Username" />
+                            <Form.Control type="text" value={user.name} placeholder="Enter Username" />
                         </Form.Group>
-
 
                         <Form.Group as={Col} controlId="formGridState">
                             <Form.Label>Choose Currency</Form.Label>
-                            <Form.Control as="select" defaultValue="Choose...">
+                            <Form.Control as="select" defaultValue={user.currency}>
                                 <option>euro</option>
                                 <option>dollar</option>
                             </Form.Control>

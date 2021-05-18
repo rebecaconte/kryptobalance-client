@@ -3,24 +3,19 @@ import axios from 'axios';
 import config from '../../config';
 import AddCoin from './AddCoin';
 import Graph from './Graph';
-import dayjs from "dayjs";
 import { Card, Accordion, ListGroup, Row, Col, Container, Image } from 'react-bootstrap';
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 class Dashboard extends Component {
 
   state = {
     showModal: false,
     graphData: [],
+    dataArr: [],
+    coinNameArray: [],
     graphDataLoaded: false,
     coinAmount: 0,
     coinName: ''
-  }
-
-  constructor() {
-    super();
-    this.showModal = this.showModal.bind(this);
-    this.hideModal = this.hideModal.bind(this);
   }
 
   showModal = () => {
@@ -40,7 +35,7 @@ class Dashboard extends Component {
       purchaseDate: purchaseDate.value,
       amountInvested: amountInvested.value,
       currencyUsed: currencyUsed.value,
-      user: this.state.user
+      user: this.props.user
     }
 
     // add coin info in the DB
@@ -53,68 +48,30 @@ class Dashboard extends Component {
       })
   }
 
-  //graph of each currency
-  buildGraph = () => {
-    const { graphData } = this.state
-
-    let coinAmount = 0;
-    let totalInvested = 0;
-    let array = [];
-
-    if (graphData.length) {
-
-      for (let i = 0; i < graphData.length; i++) {
-
-        const coinPrice = graphData[i].price.eur;
-        coinAmount += graphData[i].amountInvested / coinPrice;
-        totalInvested += graphData[i].amountInvested;
-
-        const total = coinAmount * coinPrice;
-        const date = dayjs(graphData[i].purchaseDate).format("MM/DD/YYYY");
-
-        array.push({
-          TotalInvested: totalInvested,
-          CoinAmount: coinAmount,
-          CoinPrice: coinPrice,
-          Total: total,
-          date: date
-        });
-      }
-
-      this.setState({
-        dataArr: array,
-        graphDataLoaded: true,
-        coinAmount: coinAmount
-      })
-    }
-  }
-
   //get all purchase history to display in the graph
   getCoinGraphData = async () => {
+    const { user } = this.props
 
-    try {
-      const coinResponse = await fetch(`${config.API_URL}/api/coin/history/all`);
-      const response = await coinResponse.json();
-
-      this.setState({
-        graphData: response
-      });
-
-    } catch (e) {
-      console.log("Error during getCoinGraphData: ", e);
-    }
+    axios.get(`${config.API_URL}/api/coin/${user._id}/history/all`)
+      .then((response) => {
+        console.log(response.data)
+        this.setState({
+          graphData: response.data,
+          graphDataLoaded: true
+        });
+      })
+      .catch((e) => {
+        console.log("Error during getCoinGraphData: ", e);
+      })
   };
 
   componentDidMount() {
-    this.getCoinGraphData().then(() => {
-      this.buildGraph();
-    })
+    this.getCoinGraphData()
   }
-
 
   render() {
 
-    const { graphData, coinAmount } = this.state
+    const { graphData } = this.state
     const graphDataLoaded = this.state.graphDataLoaded
     const { user } = this.props
 
@@ -132,7 +89,7 @@ class Dashboard extends Component {
                   {
                     graphDataLoaded ?
                       <div>
-                        <img src={graphData[0].image} alt={graphData[0].name} /> {graphData[0].name}  {coinAmount}
+                        <img src={graphData[0].image} alt={graphData[0].name} /> {graphData[0].name}
                       </div>
                       :
                       <div></div>
@@ -143,7 +100,7 @@ class Dashboard extends Component {
                     {
                       graphDataLoaded ?
                         <div>
-                          <Graph buildGraph={this.buildGraph} graphData={graphData} />
+                          <Graph graphData={graphData} coinName={this.state.coinNameArray[0]} />
                         </div>
                         :
                         <div></div>
@@ -151,13 +108,51 @@ class Dashboard extends Component {
 
                   </Card.Body>
                 </Accordion.Collapse>
-              </Card>
-              <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="1">
-                  Another coin
+                  {
+                    graphDataLoaded ?
+                      <div>
+                        <img src={graphData[0].image} alt={graphData[0].name} /> {graphData[0].name}
+                      </div>
+                      :
+                      <div></div>
+                  }
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="1">
-                  <Card.Body>render graph here</Card.Body>
+                  <Card.Body>
+                    {
+                      graphDataLoaded ?
+                        <div>
+                          <Graph graphData={graphData} coinName={this.state.coinNameArray[1]} />
+                        </div>
+                        :
+                        <div></div>
+                    }
+
+                  </Card.Body>
+                </Accordion.Collapse>
+                <Accordion.Toggle as={Card.Header} eventKey="2">
+                  {
+                    graphDataLoaded ?
+                      <div>
+                        <img src={graphData[0].image} alt={graphData[0].name} /> {graphData[0].name}
+                      </div>
+                      :
+                      <div></div>
+                  }
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="2">
+                  <Card.Body>
+                    {
+                      graphDataLoaded ?
+                        <div>
+                          <Graph graphData={graphData} coinName={this.state.coinNameArray[2]} />
+                        </div>
+                        :
+                        <div></div>
+                    }
+
+                  </Card.Body>
                 </Accordion.Collapse>
               </Card>
             </Accordion>
@@ -182,10 +177,6 @@ class Dashboard extends Component {
             </Container>
           </div>
         </div>
-
-        
-        
-
 
         <div className="secondLevelDashboard">
           <div>

@@ -26,10 +26,10 @@ class App extends Component {
 
   handleSignUp = (e) => {
     e.preventDefault()
-    const { username, email, password } = e.target
+    const { email, username, password } = e.target
     let newUser = {
-      username: username.value,
       email: email.value,
+      username: username.value,
       password: password.value
     }
 
@@ -49,12 +49,12 @@ class App extends Component {
   handleSignIn = async (e) => {
     e.preventDefault()
     const { email, password } = e.target
-    let newUser = {
+    let user = {
       email: email.value,
       password: password.value
     }
 
-    axios.post(`${config.API_URL}/api/signin`, newUser, { withCredentials: true })
+    axios.post(`${config.API_URL}/api/signin`, user, { withCredentials: true })
       .then((response) => {
         this.setState({
           user: response.data,
@@ -64,6 +64,7 @@ class App extends Component {
         })
       })
       .catch((errorObj) => {
+        console.log(errorObj)
         this.setState({
           error: errorObj.response.data
         })
@@ -103,6 +104,15 @@ class App extends Component {
         })
   }
 
+  updateUser = (user) => {
+    console.log(user);
+    this.setState ({
+      user: user
+    }, () => {
+    this.props.history.push('/profile')
+    })
+  }
+
   render() {
 
     const { user, error, fetchingUser } = this.state
@@ -121,8 +131,8 @@ class App extends Component {
             return <HomePage />
           }} />
 
-          <Route exact path="/signup" render={() => {
-            return <SignUp onSubmit={this.handleSignUp} />
+          <Route exact path="/signup" render={(routeProps) => {
+            return <SignUp error={error} onSubmit={this.handleSignUp} {...routeProps} />
           }} />
 
           <Route exact path="/signin" render={(routeProps) => {
@@ -144,8 +154,8 @@ class App extends Component {
             return <Profile user={user} />
           }} />
 
-          <Route exact path="/profile/:edit/" render={() => {
-            return <EditProfile user={user} />
+          <Route exact path="/profile/edit/" render={(routeProps) => {
+            return <EditProfile updateUser={this.updateUser} user={user} {...routeProps}/>
           }} />
 
 

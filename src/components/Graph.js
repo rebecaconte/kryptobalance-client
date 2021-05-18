@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AreaChart, Area, XAxis, YAxis, Tooltip } from "recharts";
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 class Graph extends Component {
 
@@ -9,10 +9,6 @@ class Graph extends Component {
     dataArr: null,
 
     styles: {
-      container: {
-        maxWidth: 700,
-        margin: "0 auto"
-      },
       tooltipWrapper: {
         background: "#444444",
         border: "none"
@@ -65,8 +61,8 @@ class Graph extends Component {
 
     return (
       <div>
-        <div style={styles.container}>
-          <AreaChart data={dataArr} height={250} width={700}>
+        <ResponsiveContainer height={250}>
+          <AreaChart data={dataArr}>
             <XAxis dataKey={"date"} />
             <YAxis orientation={"left"}  />
             <YAxis yAxisId="right" orientation="right" />
@@ -94,7 +90,7 @@ class Graph extends Component {
               activeDot={{ strokeWidth: 0 }}
             />  
           </AreaChart>
-        </div>
+        </ResponsiveContainer>
       </div>
     )
   }

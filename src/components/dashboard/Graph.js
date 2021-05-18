@@ -1,20 +1,15 @@
 import React, { Component } from 'react'
 import dayjs from "dayjs";
-import { AreaChart, Area, XAxis, YAxis, Tooltip } from "recharts";
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 class Graph extends Component {
 
   state = {
     coinAmount: 0,
     totalInvested: 0,
-    dataArr: null,
-    once: true,
+    dataArr: [],
 
     styles: {
-      container: {
-        maxWidth: 700,
-        margin: "0 auto"
-      },
       tooltipWrapper: {
         background: "#444444",
         border: "none"
@@ -26,6 +21,7 @@ class Graph extends Component {
     }
   }
 
+  //graph of each currency
   buildGraph = () => {
     const { graphData } = this.props
 
@@ -33,27 +29,39 @@ class Graph extends Component {
     let totalInvested = 0;
     let array = [];
 
-    for (let i = 0; i < graphData.length; i++) {
+    // If data on the database contains any coin purchase dates
+    if (graphData.length) {
 
-      const coinPrice = graphData[i].price.eur;
-      coinAmount += graphData[i].amountInvested / coinPrice;
-      totalInvested += graphData[i].amountInvested;
+      // Loop through all coin purchase dates ex: 20-09-2021, 21-09-2021, 22-09-2021 etc.
+      for (let i = 0; i < graphData.length; i++) {
 
-      const total = coinAmount * coinPrice;
-      const date = dayjs(graphData[i].purchaseDate).format("MM/DD/YYYY");
+        // Get coin price of that specific purchase date in euro
+        const coinPrice = graphData[i].price.eur;
+        // Add the amount invested ex: 200 euros and divide it by the coin price (.52 cent per coin) of that specific date in euro
+        // This will get you the total coin amount that you own ex: 384.615 coins
+        coinAmount += graphData[i].amountInvested / coinPrice;
+        // Total invested ex: 20-09-2021 -> 200 euro 21-09-2021 -> 200 euro = 400 euro etc.
+        totalInvested += graphData[i].amountInvested;
 
-      array.push({
-        TotalInvested: totalInvested,
-        CoinAmount: coinAmount,
-        CoinPrice: coinPrice,
-        Total: total,
-        date: date
-      });
+        // total amount of money worth of coins accumulates in each purchase date
+        const total = coinAmount * coinPrice;
+        const date = dayjs(graphData[i].purchaseDate).format("MM/DD/YYYY");
+
+        array.push({
+          TotalInvested: totalInvested,
+          CoinAmount: coinAmount,
+          CoinPrice: coinPrice,
+          Total: total,
+          date: date
+        });
+      }
+
+      this.setState({
+        dataArr: array,
+        graphDataLoaded: true,
+        coinAmount: coinAmount
+      })
     }
-
-    this.setState({
-      dataArr: array
-    })
   }
 
   componentDidMount() {
@@ -69,8 +77,8 @@ class Graph extends Component {
 
     return (
       <div>
-        <div style={styles.container}>
-          <AreaChart data={dataArr} height={250} width={700}>
+        <ResponsiveContainer height={250}>
+          <AreaChart data={dataArr}>
             <XAxis dataKey={"date"} />
             <YAxis orientation={"left"}  />
             <YAxis yAxisId="right" orientation="right" />
@@ -114,7 +122,7 @@ class Graph extends Component {
               activeDot={{ strokeWidth: 0 }}
             />
           </AreaChart>
-        </div>
+        </ResponsiveContainer>
       </div>
     )
   }

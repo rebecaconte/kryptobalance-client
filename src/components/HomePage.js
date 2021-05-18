@@ -106,7 +106,7 @@ class HomePage extends Component {
                         <Link to="/signin">Sign In</Link>
                         <Link to="/signup">Sign Up</Link>
                     </p>
-                    <h3>Under construction</h3>
+        
 
                     <div>
                         <img className="logoHomePage" alt="logo" src="./logokbalance.png" />
