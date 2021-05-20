@@ -75,8 +75,8 @@ class Graph extends Component {
               type="linear"
               dataKey="CoinAmount"
               stroke="none"
-              fillOpacity={0.4}
-              fill="#55efc4"
+              fillOpacity={0.6}
+              fill="#f5e942"
               yAxisId="right"
               activeDot={{ strokeWidth: 0 }}
             />  
@@ -84,8 +84,8 @@ class Graph extends Component {
               type="linear"
               dataKey="Total"
               stroke="none"
-              fillOpacity={0.4}
-              fill="#cf55c8"
+              fillOpacity={0.8}
+              fill="#b342f5"
               activeDot={{ strokeWidth: 0 }}
             />  
           </AreaChart>

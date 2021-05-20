@@ -19,16 +19,15 @@ class MyNavbar extends Component {
                             <Navbar.Brand >Hello, {user.name}! </Navbar.Brand>
 
                             <NavDropdown title="" id="dropdown-menu-align-left">
-                                <NavDropdown.Item><Link className="linksDropDown" to="/profile" user={user}>Profile</Link></NavDropdown.Item>
-                                <NavDropdown.Item><Link className="linksDropDown" to="/dashboard" user={user}>Dashboard</Link></NavDropdown.Item>
-                                <NavDropdown.Item><Link className="linksDropDown" to="/about">Contact </Link></NavDropdown.Item>
+                                <NavDropdown.Item className="linksDropDown"><Link className="linksDropDown" to="/profile" user={user}>Profile</Link></NavDropdown.Item>
+                                <NavDropdown.Item className="linksDropDown"><Link className="linksDropDown" to="/dashboard" user={user}>Dashboard</Link></NavDropdown.Item>
+                                <NavDropdown.Item className="linksDropDown" ><Link className="linksDropDown" to="/about">Contact </Link></NavDropdown.Item>
                                 <NavDropdown.Divider />
                                 <button onClick={onLogout}>Logout</button>
                             </NavDropdown>
                             {
                                 user.image ?
                                     <div>
-
                                         <img className="nav-profile-img" alt="user-avatar" src={user.image} alt={user.name} />
                                     </div>
                                     :

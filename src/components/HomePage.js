@@ -29,7 +29,6 @@ class HomePage extends Component {
         })
     }
 
-
     //grab from the form info about the name of coin invested
     handleGrowthName = (event) => {
         let text = event.target.value
@@ -101,89 +100,97 @@ class HomePage extends Component {
 
         return (
             <div>
-                <div>
-                    <p className="mb-0">
-                        <Link to="/signin">Sign In</Link>
-                        <Link to="/signup">Sign Up</Link>
-                    </p>
-
-                    <div>
-                        <img className="logoHomePage" alt="logo" src="./logokbalance.png" />
+                <div className="homePageTop" >
+                    <div className="linksHomePage ">
+                        <Link className="spaceLinks" to="/signin">Sign in</Link>
+                        <div className="spaceLinks"> | </div>
+                        <Link className="spaceLinks" to="/signup">Sign up</Link>
                     </div>
                 </div>
 
-                <Form>
-                    <Accordion>
-                        <Row>
-                            <Col>
-                                <Form.Control placeholder="Coin Name" onChange={this.handleGrowthName} value={this.state.growth.name} />
-                            </Col>
-                            <Col>
-                                <Form.Control placeholder=" € Amount invested" onChange={this.handleGrowthAmountInvested} value={this.state.growth.amountInvested} />
-                            </Col>
-                            <Col>
-                                <Form.Control placeholder="Date of investment" onChange={this.handleGrowthPurchaseDate} value={this.state.growth.purchaseDate} />
-                            </Col>
+                <div >
+                    <div className="logoHomePage">
+                        <Link to="/"><img className="logoHPage" alt="logo" src="./logokbalance.png" /></Link>
+                    </div>
+                </div>
 
-                            <Col>
-                                <Form.Control placeholder="Currency used" onChange={this.handleGrowthCurrencyUsed} value={this.state.growth.currencyUsed} />
-                            </Col>
-                            <Col>
-                                <Card style={{ "width": "60px" }}>
-                                    <Accordion.Toggle onClick={() => { this.showGrowth(this.state.growth) }} as={Button} variant="light" eventKey="0">
-                                        ▶
-                                    </Accordion.Toggle>
-                                </Card>
-                            </Col>
+                <Col className="middleSpaceHP" md={{ span: 3, offset: 3 }}></Col>
 
-                            <Accordion.Collapse eventKey="0">
-                                <Card.Body>
+                <Col md={{ span: 6, offset: 3 }}>
+                    <Form >
+                        <Accordion >
+                            <Row className="homePageAcordeon">
+                                <Col>
+                                    <label htmlFor="name">CryptoCurrency Name:</label>
+                                    <Form.Control placeholder="'bitcoin'" onChange={this.handleGrowthName} value={this.state.growth.name} />
+                                </Col>
+                                <Col>
+                                    <label htmlFor="name">Amount Invested:</label>
+                                    <Form.Control placeholder=" '2000' " onChange={this.handleGrowthAmountInvested} value={this.state.growth.amountInvested} />
+                                </Col>
+                                <Col>
+                                    <label htmlFor="name">Date of Investment:</label>
+                                    <Form.Control placeholder="'10-03-2016'" onChange={this.handleGrowthPurchaseDate} value={this.state.growth.purchaseDate} />
+                                </Col>
 
-                                    <Col>
-                                        <p>Today's Value:</p>
-                                        {
-                                            amountGrowth > 0 ?
-                                                <Col>
-                                                    {amountGrowth}
-                                                </Col>
-                                                :
-                                                <div></div>
-                                        }
-                                    </Col>
+                                <Col>
+                                    <label htmlFor="name">Currency Used:</label>
+                                    <Form.Control placeholder="'eur'" onChange={this.handleGrowthCurrencyUsed} value={this.state.growth.currencyUsed} />
+                                </Col>
+                                <Col>
+                                    <Card style={{ "width": "60px" }}>
+                                        <Accordion.Toggle onClick={() => { this.showGrowth(this.state.growth) }} as={Button} variant="light" eventKey="0">
+                                            ▶
+                                        </Accordion.Toggle>
+                                    </Card>
+                                </Col>
 
-                                    <Col>
-                                        {
-                                            graphDataLoaded ?
-                                                <div>
-                                                    <Graph graphData={graphData} handleAmountGrowth={this.handleAmountGrowth} />
-                                                </div>
-                                                :
-                                                <div></div>
-                                        }
-                                    </Col>
+                                <Accordion.Collapse eventKey="0">
+                                    <Card.Body>
 
-                                    <div className="alertMessage" style={{ "width": "400px", "align": "center" }}>
+                                        <Col>
+                                            <p className="textValue">Today's Value:</p>
+                                            {
+                                                amountGrowth > 0 ?
+                                                    <Col>
+                                                        {amountGrowth}
+                                                    </Col>
+                                                    :
+                                                    <div></div>
+                                            }
+                                        </Col>
 
-                                        <Alert variant="success">
-                                            <p>Hey, nice to see you here!</p>
-                                            <p >
-                                                How about keeping track of ALL your investments in cryptocurrency?
-                                                <br></br>
-                                                Create an account today!
-                                            </p>
-                                            <hr />
-                                            <p className="mb-0">
-                                                <Link to="/signup">Sign Up</Link>
-                                            </p>
-                                        </Alert>
+                                        <Col>
+                                            {
+                                                graphDataLoaded ?
+                                                    <div>
+                                                        <Graph graphData={graphData} handleAmountGrowth={this.handleAmountGrowth} />
+                                                    </div>
+                                                    :
+                                                    <div></div>
+                                            }
+                                        </Col>
 
-                                    </div>
-
-                                </Card.Body>
-                            </Accordion.Collapse>
-                        </Row>
-                    </Accordion>
-                </Form>
+                                        <div className="alertMessage" style={{ "width": "300px", "align": "center" }}>
+                                            <Alert variant="success">
+                                                <p>Hey, nice to see you here!</p>
+                                                <p >
+                                                    How about keeping track of ALL your investments in cryptocurrency?
+                                                    <br></br>
+                                                    Create an account today!
+                                                </p>
+                                                <hr />
+                                                <p className="mb-0">
+                                                    <Link to="/signup">Sign Up</Link>
+                                                </p>
+                                            </Alert>
+                                        </div>
+                                    </Card.Body>
+                                </Accordion.Collapse>
+                            </Row>
+                        </Accordion>
+                    </Form>
+                </Col>
             </div>
         )
     }
