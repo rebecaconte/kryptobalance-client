@@ -1,37 +1,47 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { Row, Col } from 'react-bootstrap';
 
 
 class AboutUs extends Component {
     render() {
         return (
-            <div>
-                <div>
-                <Link to="/"><img className="logoHomePage" alt="logo" src="/public/logokbalance.png" /></Link>
-                </div>
+            <div  >
+                <Col className="aboutPage" >
 
-                <div>
-                    <a href="/signin">Sign in</a>
-                    <a href="/signup">Sign up</a>
-                </div>
+                    <div className="aboutPageFirst">
+                        <div className="linksAboutPage ">
+                            <Link className="spaceLinks" to="/signin">Sign in</Link>
+                            <div className="spaceLinks"> | </div>
+                            <Link className="spaceLinks" to="/signup">Sign up</Link>
+                        </div>
+                    </div>
 
+                    <div className="aboutPage">
+                        <div className="logoAboutPage">
+                            <Link to="/"><img className="logoAPage" alt="logo" src="./logokbalance.png" /></Link>
+                        </div>
+                    </div>
 
-                <div>
-                    <h2>About us:</h2>
-                    <p>KryptoBalance is an app that allows users to create the perfect environment to keep track of their investments in crypto currency. The available tools such as graphics, conversions, history and alerts simplifies and connects all information in one single board.</p>
+                    <Col xs={2} md={10} className="textAboutPage">
+                        <div className="infoAboutUs" >
+                            <h2>About us:</h2>
+                            <p>KryptoBalance is an app that allows users to create the perfect environment to keep track of their investments in crypto currency. The available tools such as graphics, conversions, history and alerts simplifies and connects all information in one single board.</p>
 
-                    <p>The user has right in hand all the needed information of all his investments in one place.</p>
-                </div>
+                            <p>The user has right in hand all the needed information of all his investments in one place.</p>
+                        </div>
 
-                <div>
-                    <h2>Contact us:</h2>
-                    <p> Keep in touch! Write us an email with doubts, suggestions. Anything! </p>
-                    <p>kryptobalanceproject@gmail.com</p>
-                </div>
+                        <div className="infoAboutUs">
+                            <h2>Contact us:</h2>
+                            <p> Keep in touch! Write us an email with doubts, suggestions. Anything! </p>
+                            <p>kryptobalanceproject@gmail.com</p>
+                        </div>
+                    </Col>
 
-                <div>
-                    {/*social media icons*/}
-                </div>
+                    <Row>
+                        {/*social media icons*/}
+                    </Row>
+                </Col>
             </div>
         )
     }

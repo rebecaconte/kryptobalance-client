@@ -1,16 +1,13 @@
 .App {
   text-align: center;
-  background-color:#000000;
+  background-color:#ffffff;
 }
 
 body {
-  background-color: #000000;
-  color: white;
-}
 
-.title {
-  color: #f7931a;
-  font-size: 40px;
+ 
+  font-size: 25px;
+  
 }
 
 /**** NAVBAR ****/
@@ -18,17 +15,24 @@ body {
 .MyNavBar{
   display: flex;
   flex-direction: row;
- 
-
 } 
 
 .nav-links .selected{
   display: flex;
   flex-direction: row;
   align-self: center;
-  justify-content: center;
   justify-content: space-between;
   
+}
+
+.navbar {
+  padding-left: 50px;
+  padding-right: 50px;
+  margin: 0;
+}
+
+.navbar-expand {
+  justify-content: space-between !important;
 }
 
 .nav-menu {
@@ -36,50 +40,109 @@ body {
   flex-direction: column;
   align-self: center;
   justify-content: flex-end;
-  
 }
 
+.navbar-home-link {
+  text-decoration: none;
+  color: white;
+}
 
 .nav-profile-img {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   object-fit: cover;
   border-radius: 50%;
 }
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  
-  
+
+.dropdown-menu {
+  right: 5px;
 }
 
-.navbar-nav{
-  right: 60px;
-  position: fixed;
+.linksDropDown{
+  color:#000000;
+  text-decoration: none;
 }
 
-
+.linksDropDown:hover {
+  color: #000000;
+}
 
 
 /**** FOOTER ****/
 
 .MyFooter {
-  position: fixed;
-  left: 0;
   bottom: 0;
+  padding: 0;
   width: 100%;
   color: white;
   text-align: center;
   height: 60px;
   line-height: 60px;
   background-color: #000000;
+  text-align: center;
+  position:fixed
 }
 
-.FooterContainer{
+.text-footer {
+  margin-right: 40px;
+  color:white;
+}
+
+
+/**** ABOUT PAGE ****/
+
+.aboutPage{
   display: flex;
-  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logoAboutPage{
+  margin-right: 90px;
+  display: flex;
+  justify-content: flex-start
+  
+}
+
+.logoAPage{
+  width: 225px;
+  height: 200px;
+  margin-left: 80px;
+ 
+}
+
+.aboutPageFirst{
+  margin-top: 40px;
+}
+
+.linksAboutPage{
+  display: flex;
+  justify-content: flex-end;
+  color:#000000;
+  margin-top: 70px;
+  margin-right: 15em;
+  
+  
+}
+
+.spaceLinks{
+  padding-right: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.textAboutPage{
+  width: 750px;
+  text-align: justify;
+  display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+  margin-top: 20px;
+}
+
+.infoAboutUs{
+  margin-top: 30px;;
 }
 
 
@@ -104,12 +167,15 @@ body {
   flex-direction: row;
   align-content: center;
   align-items: center;
+  flex-flow: row wrap;
   justify-content: space-around;
   align-items: flex-start;
-  margin: 20px 40px 20px 50px;
-  
 }
 
+.pieChart{
+  margin-right: 30px;
+}
+/*
 .secondLevelDashboard{
   display: flex;
   flex-direction: row;
@@ -118,15 +184,86 @@ body {
   justify-content: space-around;
   align-items: flex-start;
   margin-bottom: 70px ;
-
-}
+} */
 
 .dashboardAccordeon{
   width: 600px;
- 
 }
 
 .totalInvGraph{
   width: 250px;
+}
 
+/**** EDIT PROFILE ****/
+
+
+.profileImage{
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  margin-top: 50px;
+  
+}
+
+.formContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+}
+
+.formInput{
+  width: 500px;
+  height: 60px;
+  align-self: center;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.buttonProfile{
+  margin-top: 40px;
+  margin-left: 33%;
+}
+
+.editIcon{
+  display: flex;
+  justify-content: flex-end;
+  color:#000000;
+  text-decoration: none;
+}
+
+.editIcon:hover{
+  color: black;
+}
+
+
+
+/*** SIGN IN and UP ****/
+
+.formContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+}
+
+.signInForm{
+  font-size: 20px;
+}
+
+.submitButton{
+  margin-top: 40px;
+  display: flex;
+}
+
+.logoSign{
+  width: 150px;
+  height: 150px;
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+
+.formSign{
+  width: 500px;
+  align-self: center;
 }

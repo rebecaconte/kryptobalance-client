@@ -1,30 +1,46 @@
 import React, { Component } from 'react';
-import { Form, Col} from 'react-bootstrap';
+import { Form, Col, Button } from 'react-bootstrap';
 
 class SignUp extends Component {
 
     render() {
 
-        const { onSubmit } = this.props
+        const { onSubmit, error } = this.props
 
         return (
-            <Col className="signUpForm">
-                <Form onSubmit={onSubmit}>
-                    <Form.Group controlId="">
+            <Col className="formContainer signInForm">
+
+                <div >
+                    <img className="logoSign" alt="logo" src="./logokbalance.png" />
+                </div>
+
+                <Form className="formInput" onSubmit={onSubmit}>
+                    <Form.Group className="formSign" controlId="">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" name="email" placeholder="Enter email" />
-                        <small className="form-text text-muted">Don't worry, we'll never share your email with anyone else.</small>
+                        <Form.Control size="lg" required type="email" name="email" placeholder="Enter email" />
                     </Form.Group>
-                    <Form.Group controlId="">
+
+                    <Form.Group className="formSign" controlId="">
                         <Form.Label>Username</Form.Label>
-                        <Form.Control type="text" name="username" placeholder="Enter username" />
+                        <Form.Control size="lg" required type="text" name="username" placeholder="Enter username" />
                     </Form.Group>
-                    <Form.Group controlId="">
+
+                    <Form.Group className="formSign" controlId="">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" name="password" placeholder="Password" />
+                        <Form.Control size="lg" required type="password" name="password" placeholder="Password" />
                     </Form.Group>
-                    <button type="submit" >Submit</button>
+                    <Button variant="outline-dark" className="submitButton" type="submit">Submit</Button>
                 </Form>
+
+                {
+                    error ?
+                        <Col>
+                            {error.errorMessage}
+                        </Col>
+                        :
+                        <div></div>
+                }
+
             </Col>
         )
     }

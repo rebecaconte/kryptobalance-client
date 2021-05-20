@@ -3,7 +3,8 @@ import axios from 'axios';
 import config from '../../config';
 import AddCoin from './AddCoin';
 import Graph from './Graph';
-import { Card, Accordion, ListGroup, Row, Col, Container, Image } from 'react-bootstrap';
+import PieChart from './PieChart';
+import { Card, Accordion, Container, Button } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom'
 
 class Dashboard extends Component {
@@ -13,6 +14,7 @@ class Dashboard extends Component {
     graphData: [],
     dataArr: [],
     coinNameArray: [],
+    coinImageArray: [],
     graphDataLoaded: false,
     coinAmount: 0,
     coinName: ''
@@ -54,11 +56,37 @@ class Dashboard extends Component {
 
     axios.get(`${config.API_URL}/api/coin/${user._id}/history/all`)
       .then((response) => {
-        console.log(response.data)
-        this.setState({
-          graphData: response.data,
-          graphDataLoaded: true
-        });
+
+        if (response.data.length) {
+
+          this.setState({
+            graphData: response.data
+          })
+
+          let coinArray = [];
+          let coinImageArray = [];
+
+          //separate it by the coin name
+          this.state.graphData.forEach(coin => {
+            if (!coinArray.includes(coin.name)) {
+              coinArray.push(coin.name);
+            }
+          })
+
+          //show the coin image
+          this.state.graphData.forEach(coin => {
+            if (!coinImageArray.includes(coin.image)) {
+              coinImageArray.push(coin.image);
+            }
+          })
+
+          this.setState({
+            coinNameArray: coinArray,
+            coinImageArray: coinImageArray,
+            graphDataLoaded: true
+          });
+        }
+
       })
       .catch((e) => {
         console.log("Error during getCoinGraphData: ", e);
@@ -71,9 +99,9 @@ class Dashboard extends Component {
 
   render() {
 
-    const { graphData } = this.state
+    const { graphData, coinNameArray, coinImageArray } = this.state
     const graphDataLoaded = this.state.graphDataLoaded
-    const { user } = this.props
+    const { user, onDelete } = this.props
 
     if (!user) {
       return <Redirect to={'/signin'} />
@@ -85,136 +113,164 @@ class Dashboard extends Component {
           <div className="dashboardAccordeon">
             <Accordion defaultActiveKey="0">
               <Card>
-                <Accordion.Toggle as={Card.Header} eventKey="0">
-                  {
-                    graphDataLoaded ?
-                      <div>
-                        <img src={graphData[0].image} alt={graphData[0].name} /> {graphData[0].name}
-                      </div>
-                      :
-                      <div></div>
-                  }
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="0">
-                  <Card.Body>
-                    {
-                      graphDataLoaded ?
+                {/* SLOT 1 */}
+                {
+                  graphDataLoaded && graphData[0] && coinNameArray[0] ?
+                    <div>
+                      <Accordion.Toggle as={Card.Header} eventKey="0">
                         <div>
-                          <Graph graphData={graphData} coinName={this.state.coinNameArray[0]} />
+                          <img src={coinImageArray[0]} alt={graphData[0].name} /> {coinNameArray[0]}
                         </div>
-                        :
-                        <div></div>
-                    }
 
-                  </Card.Body>
-                </Accordion.Collapse>
-                <Accordion.Toggle as={Card.Header} eventKey="1">
-                  {
-                    graphDataLoaded ?
-                      <div>
-                        <img src={graphData[0].image} alt={graphData[0].name} /> {graphData[0].name}
-                      </div>
-                      :
-                      <div></div>
-                  }
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="1">
-                  <Card.Body>
-                    {
-                      graphDataLoaded ?
+                      </Accordion.Toggle>
+
+                      <Accordion.Collapse eventKey="0">
+                        <Card.Body>
+                          <div>
+                            <Graph graphData={graphData} coinName={coinNameArray[0]} />
+
+                            <button onClick={() => { onDelete(coinNameArray[0]) }} >Delete</button>
+                          </div>
+                        </Card.Body>
+                      </Accordion.Collapse>
+                    </div>
+                    :
+                    <div></div>
+                }
+                {/* SLOT 2 */}
+                {
+                  graphDataLoaded && graphData[1] && coinNameArray[1] ?
+                    <div>
+                      <Accordion.Toggle as={Card.Header} eventKey="1">
                         <div>
-                          <Graph graphData={graphData} coinName={this.state.coinNameArray[1]} />
+                          <img src={coinImageArray[1]} alt={graphData[1].name} /> {coinNameArray[1]}
                         </div>
-                        :
-                        <div></div>
-                    }
 
-                  </Card.Body>
-                </Accordion.Collapse>
-                <Accordion.Toggle as={Card.Header} eventKey="2">
-                  {
-                    graphDataLoaded ?
-                      <div>
-                        <img src={graphData[0].image} alt={graphData[0].name} /> {graphData[0].name}
-                      </div>
-                      :
-                      <div></div>
-                  }
-                </Accordion.Toggle>
-                <Accordion.Collapse eventKey="2">
-                  <Card.Body>
-                    {
-                      graphDataLoaded ?
+                      </Accordion.Toggle>
+
+                      <Accordion.Collapse eventKey="1">
+                        <Card.Body>
+                          <div>
+                            <Graph graphData={graphData} coinName={coinNameArray[1]} />
+
+                            <button onClick={() => { onDelete(coinNameArray[1]) }} >Delete</button>
+                          </div>
+                        </Card.Body>
+                      </Accordion.Collapse>
+                    </div>
+                    :
+                    <div></div>
+                }
+                {/* SLOT 3 */}
+                {
+                  graphDataLoaded && graphData[2] && coinNameArray[2] ?
+                    <div>
+                      <Accordion.Toggle as={Card.Header} eventKey="2">
                         <div>
-                          <Graph graphData={graphData} coinName={this.state.coinNameArray[2]} />
+                          <img src={coinImageArray[2]} alt={graphData[2].name} /> {coinNameArray[2]}
                         </div>
-                        :
-                        <div></div>
-                    }
 
-                  </Card.Body>
-                </Accordion.Collapse>
+                      </Accordion.Toggle>
+
+                      <Accordion.Collapse eventKey="2">
+                        <Card.Body>
+                          <div>
+                            <Graph graphData={graphData} coinName={coinNameArray[2]} />
+
+                            <button onClick={() => { onDelete(coinNameArray[2]) }} >Delete</button>
+                          </div>
+                        </Card.Body>
+                      </Accordion.Collapse>
+                    </div>
+                    :
+                    <div></div>
+                }
+                {/* SLOT 4 */}
+                {
+                  graphDataLoaded && graphData[3] && coinNameArray[3] ?
+                    <div>
+                      <Accordion.Toggle as={Card.Header} eventKey="3">
+                        <div>
+                          <img src={coinImageArray[3]} alt={graphData[3].name} /> {coinNameArray[3]}
+                        </div>
+
+                      </Accordion.Toggle>
+
+                      <Accordion.Collapse eventKey="3">
+                        <Card.Body>
+                          <div>
+                            <Graph graphData={graphData} coinName={coinNameArray[3]} />
+
+                            <button onClick={() => { onDelete(coinNameArray[3]) }} >Delete</button>
+                          </div>
+                        </Card.Body>
+                      </Accordion.Collapse>
+                    </div>
+                    :
+                    <div></div>
+                }
+                {/* SLOT 5 */}
+                {
+                  graphDataLoaded && graphData[4] && coinNameArray[4] ?
+                    <div>
+                      <Accordion.Toggle as={Card.Header} eventKey="4">
+                        <div>
+                          <img src={coinImageArray[4]} alt={graphData[4].name} /> {coinNameArray[4]}
+                        </div>
+
+                      </Accordion.Toggle>
+
+                      <Accordion.Collapse eventKey="4">
+                        <Card.Body>
+                          <div>
+                            <Graph graphData={graphData} coinName={coinNameArray[4]} />
+
+                            <button onClick={() => { onDelete(coinNameArray[4]) }} >Delete</button>
+                          </div>
+                        </Card.Body>
+                      </Accordion.Collapse>
+                    </div>
+                    :
+                    <div></div>
+                }
               </Card>
             </Accordion>
+
+            {/* ADD COIN */}
+
             <div>
               <button type="button" onClick={this.showModal}>
                 +Coin
               </button>
             </div>
 
-            <AddCoin addCoin={this.postCoinPurchaseHistory} show={this.state.show} handleClose={this.hideModal} />
+            <>
+              <Button variant="primary" size="lg" block>
+                <AddCoin addCoin={this.postCoinPurchaseHistory} show={this.state.show} handleClose={this.hideModal} />
+
+              </Button>
+            </>
+
 
           </div>
+            <div className="pieChart">
+              {/* PIE CHART */}
+              {
+                graphDataLoaded && graphData.length && coinNameArray.length ?
+                  <Container>
+                    <p>Distribuition of Investment:</p>
 
-          <div>
-            <Container>
-              <p>Total of Investments:</p>
-              <Row>
-                <Col xs={6} md={4}>
-                  <Image className="totalInvGraph" alt="logo" src="./logokbalance.png" roundedCircle />
-                </Col>
-              </Row>
-            </Container>
-          </div>
-        </div>
+                    <div className="totalInvGraph">
+                      <PieChart graphData={graphData} coinNameArray={coinNameArray} />
+                    </div>
 
-        <div className="secondLevelDashboard">
-          <div>
-            <Container>
-              <p>Distribuition of Investment:</p>
-              <Row>
-                <Col xs={6} md={4}>
-                  <Image alt="logo" src="./logokbalance.png" roundedCircle />
-                </Col>
-              </Row>
-            </Container>
+
+                  </Container>
+                  : <div></div>
+              }
+            </div>
           </div>
 
-          <div>
-
-            <ListGroup>
-              <p>Top Performers</p>
-              <ListGroup.Item>Cras justo odio</ListGroup.Item>
-              <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-              <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-              <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-              <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-            </ListGroup>
-          </div>
-
-          <div>
-
-            <ListGroup>
-              <p>Alerts</p>
-              <ListGroup.Item>Cras justo odio</ListGroup.Item>
-              <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-              <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-              <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-              <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-            </ListGroup>
-          </div>
-
-        </div>
       </div >
     )
   }

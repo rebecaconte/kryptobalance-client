@@ -1,28 +1,43 @@
 import React, { Component } from 'react'
+import { Form, Col, Button } from 'react-bootstrap';
 
 class SignIn extends Component {
     render() {
-        const { onSignIn } = this.props
+        const { onSignIn, error } = this.props
+
         return (
-            <form onSubmit={onSignIn}>
-                <div >
-                    <label >Email address</label>
-                    <input type="email" name="email" />
-                </div>
-                <div >
-                    <label >Username</label>
-                    <input type="text" name="username" />
-                </div>
-                <div >
-                    <label >Password</label>
-                    <input name="password" type="password" />
+            <Col className="formContainer signInForm">
+                <div>
+                    <img className="logoSign" alt="logo" src="./logokbalance.png" />
                 </div>
 
-                <button type="submit">Submit</button>
-            </form>
+
+                <Form className="formInput" onSubmit={onSignIn}>
+                    <Form.Group controlId="">
+                        <Form.Label>Email address</Form.Label>
+                        <Form.Control style={{ "fontSize": "25px" }} size="lg" required type="email" name="email" placeholder="Enter email" />
+                    </Form.Group>
+
+                    <Form.Group controlId="">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control size="lg" required type="password" name="password" placeholder="Password" />
+                    </Form.Group>
+                    <Button variant="outline-dark" className="submitButton" type="submit" >Sign In</Button>
+                </Form>
+
+                {
+                    error ?
+                        <Col>
+                            {error.errorMessage}
+                        </Col>
+                        :
+                        <div></div>
+                }
+
+            </Col>
         )
     }
 }
 
 
-export default SignIn
+export default SignIn;

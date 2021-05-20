@@ -106,7 +106,6 @@ class HomePage extends Component {
                         <Link to="/signin">Sign In</Link>
                         <Link to="/signup">Sign Up</Link>
                     </p>
-        
 
                     <div>
                         <img className="logoHomePage" alt="logo" src="./logokbalance.png" />
@@ -141,7 +140,7 @@ class HomePage extends Component {
                                 <Card.Body>
 
                                     <Col>
-                                        <p>GROWTH:</p>
+                                        <p>Today's Value:</p>
                                         {
                                             amountGrowth > 0 ?
                                                 <Col>
@@ -153,7 +152,6 @@ class HomePage extends Component {
                                     </Col>
 
                                     <Col>
-
                                         {
                                             graphDataLoaded ?
                                                 <div>
@@ -162,8 +160,6 @@ class HomePage extends Component {
                                                 :
                                                 <div></div>
                                         }
-
-
                                     </Col>
 
                                     <div className="alertMessage" style={{ "width": "400px", "align": "center" }}>

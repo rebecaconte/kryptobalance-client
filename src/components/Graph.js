@@ -3,9 +3,10 @@ import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from "rec
 
 class Graph extends Component {
 
+  // GRAPH FOR THE HOME PAGE
+
   state = {
     coinAmount: 0,
-    totalInvested: 0,
     dataArr: null,
 
     styles: {
@@ -57,8 +58,6 @@ class Graph extends Component {
       return <p>Loading Graph . . . </p>
     }
 
-    // TODO: Make the currency dynamic! it is static here
-
     return (
       <div>
         <ResponsiveContainer height={250}>
@@ -85,7 +84,7 @@ class Graph extends Component {
               type="linear"
               dataKey="Total"
               stroke="none"
-              fillOpacity={0.8}
+              fillOpacity={0.4}
               fill="#cf55c8"
               activeDot={{ strokeWidth: 0 }}
             />  

@@ -4,12 +4,11 @@ import { Link } from 'react-router-dom'
 class MyFooter extends Component {
     render() {
         return (
-            <footer className="MyFooter ">
-                <div className="FooterContainer">
-
+            <footer className="MyFooter">
+                <div>
                     <div className="text-muted">
-                        <Link to="/about" className="text-muted"> About Us</Link>
-                        <Link to="/about"className="text-muted"> Contact</Link>
+                        <Link to="/about" className="text-muted"><span className="text-footer">About Us</span></Link>
+                        <Link to="/about" className="text-muted"><span className="text-footer">Contact</span></Link>
                     </div>
 
                     <div>

@@ -1,12 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import dayjs from "dayjs";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 class Graph extends Component {
 
+   // GRAPH FOR THE DASHBOARD
+
   state = {
     coinAmount: 0,
-    totalInvested: 0,
+    // totalInvested: 0,
     dataArr: [],
 
     styles: {
@@ -23,10 +25,10 @@ class Graph extends Component {
 
   //graph of each currency
   buildGraph = () => {
-    const { graphData } = this.props
+    const { graphData, coinName } = this.props
 
     let coinAmount = 0;
-    let totalInvested = 0;
+    // let totalInvested = 0;
     let array = [];
 
     // If data on the database contains any coin purchase dates
@@ -35,25 +37,27 @@ class Graph extends Component {
       // Loop through all coin purchase dates ex: 20-09-2021, 21-09-2021, 22-09-2021 etc.
       for (let i = 0; i < graphData.length; i++) {
 
-        // Get coin price of that specific purchase date in euro
-        const coinPrice = graphData[i].price.eur;
-        // Add the amount invested ex: 200 euros and divide it by the coin price (.52 cent per coin) of that specific date in euro
-        // This will get you the total coin amount that you own ex: 384.615 coins
-        coinAmount += graphData[i].amountInvested / coinPrice;
-        // Total invested ex: 20-09-2021 -> 200 euro 21-09-2021 -> 200 euro = 400 euro etc.
-        totalInvested += graphData[i].amountInvested;
+        //check if there's any coin available with the same name
+        if (graphData[i].name === coinName) {
+          // Get coin price of that specific purchase date in euro
+          const coinPrice = graphData[i].price.eur;
+          // Add the amount invested ex: 200 euros and divide it by the coin price (.52 cent per coin) of that specific date in euro
+          // return the total coin amount that you own in crypto currency ex: 384.615 coins
+          coinAmount += graphData[i].amountInvested / coinPrice;
+          // Total invested ex: 20-09-2021 -> 200 euro 21-09-2021 -> 200 euro = 400 euro etc.
+          //totalInvested += graphData[i].amountInvested;
 
-        // total amount of money worth of coins accumulates in each purchase date
-        const total = coinAmount * coinPrice;
-        const date = dayjs(graphData[i].purchaseDate).format("MM/DD/YYYY");
+          // total amount of money worth of coins accumulates in each purchase date
+          const total = coinAmount * coinPrice;
+          const date = dayjs(graphData[i].purchaseDate).format("MM/DD/YYYY");
 
-        array.push({
-          TotalInvested: totalInvested,
-          CoinAmount: coinAmount,
-          CoinPrice: coinPrice,
-          Total: total,
-          date: date
-        });
+          array.push({
+            CoinAmount: coinAmount,
+            TotalEur: total,
+            CoinPrice: coinPrice,
+            date: date
+          });
+        }
       }
 
       this.setState({
@@ -71,7 +75,7 @@ class Graph extends Component {
   render() {
     const { styles, dataArr } = this.state
 
-    if(!dataArr) {
+    if (!dataArr) {
       return <p>Loading Graph . . . </p>
     }
 
@@ -80,7 +84,7 @@ class Graph extends Component {
         <ResponsiveContainer height={250}>
           <AreaChart data={dataArr}>
             <XAxis dataKey={"date"} />
-            <YAxis orientation={"left"}  />
+            <YAxis orientation={"left"} />
             <YAxis yAxisId="right" orientation="right" />
 
             <Tooltip
@@ -99,18 +103,10 @@ class Graph extends Component {
             />
             <Area
               type="linear"
-              dataKey="Total"
+              dataKey="TotalEur"
               stroke="none"
-              fillOpacity={0.6}
+              fillOpacity={0.3}
               fill="#f7931a"
-              activeDot={{ strokeWidth: 0 }}
-            />
-            <Area
-              type="linear"
-              dataKey="TotalInvested"
-              stroke="none"
-              fillOpacity={0.6}
-              fill="#3498db"
               activeDot={{ strokeWidth: 0 }}
             />
             <Area

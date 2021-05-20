@@ -24,3 +24,19 @@
 .display-none {
   display: none;
 }
+
+.modalText{
+  margin-top: 15px;
+  color: #000000;
+}
+
+.modalTitle{
+  color: #000000;
+  text-align: left;
+  font-size: 15px;
+}
+
+.modalInput{
+  font-size: 20px;
+}
+

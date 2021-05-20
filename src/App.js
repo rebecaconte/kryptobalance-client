@@ -8,11 +8,11 @@ import AboutUs from "./components/AboutUs";
 import SignIn from "./components/users/SignIn";
 import SignUp from "./components/users/SignUp";
 import Dashboard from "./components/dashboard/Dashboard";
-import CoinDetails from "./components/dashboard/CoinDetails";
 import Profile from "./components/users/Profile";
 import NotFound from "./components/404Page/NotFound";
 import MyNavbar from "./components/MyNavbar";
 import EditProfile from "./components/users/EditProfile";
+import MyFooter from "./components/MyFooter";
 
 
 class App extends Component {
@@ -23,7 +23,20 @@ class App extends Component {
     dateOfPurchase: "28-09-1987",
   }
 
+  //delete coin from DB and Dashboard
+  handleDelete = (coinName) => {
 
+    axios.delete(`${config.API_URL}/api/coins/delete/${coinName}`, { withCredentials: true })
+      .then(() => {
+        this.props.history.push('/dashboard')
+      })
+      .catch((err) => {
+        console.log('Delete failed', err)
+      })
+
+  }
+
+  //user signup
   handleSignUp = (e) => {
     e.preventDefault()
     const { email, username, password } = e.target
@@ -41,11 +54,16 @@ class App extends Component {
           this.props.history.push('/dashboard')
         })
       })
-      .catch(() => {
+      .catch((errorObj) => {
         console.log('SignUp failed')
+
+        this.setState({
+          error: errorObj.response.data
+        })
       })
   }
 
+  //user signin
   handleSignIn = async (e) => {
     e.preventDefault()
     const { email, password } = e.target
@@ -71,7 +89,7 @@ class App extends Component {
       })
   }
 
-
+  //user loggout
   handleLogout = () => {
     axios.post(`${config.API_URL}/api/logout`, {}, { withCredentials: true })
       .then(() => {
@@ -88,39 +106,41 @@ class App extends Component {
       })
   }
 
-  componentDidMount() {
-    axios.get(`${config.API_URL}/api/user`, {withCredentials: true}) 
-        .then((response) => {
-          this.setState({ 
-            user: response.data,
-            fetchingUser: false,
-          })
-        })
-        .catch((errorObj) => {
-          this.setState({
-            error: errorObj.data,
-            fetchingUser: false,
-          })
-        })
-  }
-
+  //update state of user for the profile edit
   updateUser = (user) => {
     console.log(user);
-    this.setState ({
+    this.setState({
       user: user
     }, () => {
-    this.props.history.push('/profile')
+      this.props.history.push('/profile')
     })
+  }
+
+  componentDidMount() {
+    axios.get(`${config.API_URL}/api/user`, { withCredentials: true })
+      .then((response) => {
+        this.setState({
+          user: response.data,
+          fetchingUser: false,
+        })
+      })
+      .catch((errorObj) => {
+        this.setState({
+          error: errorObj.data,
+          fetchingUser: false,
+        })
+      })
   }
 
   render() {
 
     const { user, error, fetchingUser } = this.state
 
-    if(fetchingUser){
+    if (fetchingUser) {
       return <p>Loading . . . </p>
     }
 
+    //routes 
     return (
       <div>
         <MyNavbar onSignin={this.handleSignIn} onLogout={this.handleLogout} user={user} />
@@ -144,10 +164,7 @@ class App extends Component {
           }} />
 
           <Route exact path="/dashboard" render={() => {
-            return <Dashboard user={user} />
-          }} />
-          <Route exact path="/dashboard/:idcoin/" render={() => {
-            return <CoinDetails user={user} />
+            return <Dashboard onDelete={this.handleDelete} user={user} />
           }} />
 
           <Route exact path="/profile" render={() => {
@@ -155,14 +172,14 @@ class App extends Component {
           }} />
 
           <Route exact path="/profile/edit/" render={(routeProps) => {
-            return <EditProfile updateUser={this.updateUser} user={user} {...routeProps}/>
+            return <EditProfile updateUser={this.updateUser} user={user} {...routeProps} />
           }} />
-
 
           <Route path="/" component={NotFound} />
 
-
         </Switch>
+
+        <MyFooter />
       </div>
     )
 
