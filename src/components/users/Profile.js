@@ -29,7 +29,7 @@ class Profile extends Component {
                                                 <img className="profileImage" src={user.image} alt={user.name} />
                                             </div>
                                             :
-                                            <Image className="profileImage" src="../logokbalance.png" rounded />
+                                            <Image className="profileImage" src="../avatar.png" rounded />
                                     }
                                 </Col>
                                 <div className=" editIcon">
@@ -52,7 +52,7 @@ class Profile extends Component {
                         </Form.Group>
 
                         <div>
-                            <Button className="formInput" href="/dashboard" className="buttonProfile" variant="secondary" size="lg" >
+                            <Button className="formInput" href="/dashboard" className="buttonProfile" variant="outline-dark" size="lg" >
                                 My Dashboard
                             </Button>
                         </div>

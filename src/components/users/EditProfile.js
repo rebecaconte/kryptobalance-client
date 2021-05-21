@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Form, Col, Button, Container, ButtonGroup, Row, Image } from 'react-bootstrap';
-import { Redirect, Link } from 'react-router-dom';
+import { Form, Col, Button, Container, Row, Image } from 'react-bootstrap';
+import { Redirect} from 'react-router-dom';
 import axios from 'axios';
 import config from '../../config';
 
@@ -90,7 +90,7 @@ class EditProfile extends Component {
                                             <img className="profileImage" src={user.image} alt={user.name} />
                                         </div>
                                         :
-                                        <Image className="profileImage" src="../logokbalance.png" rounded />
+                                        <Image className="profileImage" src="../avatar.png" rounded />
                                 }
                             </Col>
                         </Row>
@@ -111,12 +111,19 @@ class EditProfile extends Component {
                             </Form.Control>
                         </Form.Group>
 
-                        <div className="formInput" className="buttonProfile">
-                            <ButtonGroup aria-label="Basic example">
-                                <Button> <Link to="/profile" variant="outline-secondary">Back </Link></Button>
-                                <Button type="submit" variant="outline-info">Save</Button>
+                        <div className="formInput" >
 
-                            </ButtonGroup>
+                            <div className="buttonEditProfile">
+                                <Button href="/profile" variant="outline-secondary"  >
+                                    Back
+                                </Button>
+
+                                <Button type="submit" variant="outline-dark" >
+                                    Save
+                                </Button>
+                            </div>
+
+
                         </div>
                     </Form>
                 </Container>

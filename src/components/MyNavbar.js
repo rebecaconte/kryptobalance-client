@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, NavDropdown, Image } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Image, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 
@@ -23,7 +23,7 @@ class MyNavbar extends Component {
                                 <NavDropdown.Item className="linksDropDown"><Link className="linksDropDown" to="/dashboard" user={user}>Dashboard</Link></NavDropdown.Item>
                                 <NavDropdown.Item className="linksDropDown" ><Link className="linksDropDown" to="/about">Contact </Link></NavDropdown.Item>
                                 <NavDropdown.Divider />
-                                <button onClick={onLogout}>Logout</button>
+                                <Button variant="light" className="linksDropDown" onClick={onLogout}>Logout</Button>
                             </NavDropdown>
                             {
                                 user.image ?
@@ -31,7 +31,7 @@ class MyNavbar extends Component {
                                         <img className="nav-profile-img" alt="user-avatar" src={user.image} alt={user.name} />
                                     </div>
                                     :
-                                    <Image className="nav-profile-img" alt="user-avatar" src="../logokbalance.png" rounded />
+                                    <Image className="nav-profile-img" alt="user-avatar" src="../avatar.png" rounded />
                             }
                         </Nav>
                     </Navbar>

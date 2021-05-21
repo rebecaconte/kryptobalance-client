@@ -10,7 +10,7 @@ class SignUp extends Component {
         return (
             <Col className="formContainer signInForm">
 
-                <div >
+                <div>
                     <img className="logoSign" alt="logo" src="./logokbalance.png" />
                 </div>
 

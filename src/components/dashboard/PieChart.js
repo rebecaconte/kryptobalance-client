@@ -70,7 +70,7 @@ class InvestmentChart extends Component {
           y={ey}
           textAnchor={textAnchor}
           fill="#000"
-        >{`CoinValueEuro ${value.toFixed(2)} €`}</text>
+        >{`Value € ${value.toFixed(2)}`}</text>
         <text
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey}
@@ -91,15 +91,15 @@ class InvestmentChart extends Component {
     let coinAmount = 0;
 
     //compare equal coin names and sum the amount invested 
-    for (let i = 0; i < graphData.length; i++) { 
-      if(graphData[i].name === coinName) {
-         // Get coin price of that specific purchase date in euro
-         coinPrice = graphData[i].price.eur;
-         // Add the amount invested ex: 200 euros and divide it by the coin price (.52 cent per coin) of that specific date in euro
-         // return the total coin amount that you own in crypto currency ex: 384.615 coins
-         coinAmount += graphData[i].amountInvested / coinPrice;
-         // total amount of money worth of coins accumulates in each purchase date
-         sumOfCoinValue = coinAmount * coinPrice;
+    for (let i = 0; i < graphData.length; i++) {
+      if (graphData[i].name === coinName) {
+        // Get coin price of that specific purchase date in euro
+        coinPrice = graphData[i].price.eur;
+        // Add the amount invested ex: 200 euros and divide it by the coin price (.52 cent per coin) of that specific date in euro
+        // return the total coin amount that you own in crypto currency ex: 384.615 coins
+        coinAmount += graphData[i].amountInvested / coinPrice;
+        // total amount of money worth of coins accumulates in each purchase date
+        sumOfCoinValue = coinAmount * coinPrice;
       }
     }
 
@@ -123,24 +123,24 @@ class InvestmentChart extends Component {
     let array = [];
 
     //extract the info of each coin to later on add the amountInvested
-    for(let i = 0; i < coinNameArray.length; i++) {
+    for (let i = 0; i < coinNameArray.length; i++) {
       this.buildPieChart(array, graphData, coinNameArray[i]);
     }
-    
+
   }
 
   render() {
 
     return (
-      <PieChart width={400} height={400}>
+      <PieChart width={800} height={500}>
         <Pie
           activeIndex={this.state.activeIndex}
           activeShape={this.renderActiveShape}
           data={this.state.data}
-          cx={200}
-          cy={200}
-          innerRadius={60}
-          outerRadius={80}
+          cx={400}
+          cy={185}
+          innerRadius={80}
+          outerRadius={100}
           fill="#000"
           dataKey="value"
           onMouseEnter={this.onPieEnter}

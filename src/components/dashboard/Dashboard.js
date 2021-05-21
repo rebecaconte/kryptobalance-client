@@ -4,7 +4,7 @@ import config from '../../config';
 import AddCoin from './AddCoin';
 import Graph from './Graph';
 import PieChart from './PieChart';
-import { Card, Accordion, Container, Button } from 'react-bootstrap';
+import { Card, Accordion, Container, Button, Col } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom'
 
 class Dashboard extends Component {
@@ -109,8 +109,10 @@ class Dashboard extends Component {
 
     return (
       <div>
+
         <div className="firstLevelDashboard">
-          <div className="dashboardAccordeon">
+          <Col xs lg="6" className="dashboardAccordeon">
+            <p className="headPieChart">My Investment:</p>
             <Accordion defaultActiveKey="0">
               <Card>
                 {/* SLOT 1 */}
@@ -129,7 +131,7 @@ class Dashboard extends Component {
                           <div>
                             <Graph graphData={graphData} coinName={coinNameArray[0]} />
 
-                            <button onClick={() => { onDelete(coinNameArray[0]) }} >Delete</button>
+                            <Button variant="outline-danger" onClick={() => { onDelete(coinNameArray[0]) }} >Delete</Button>
                           </div>
                         </Card.Body>
                       </Accordion.Collapse>
@@ -153,7 +155,7 @@ class Dashboard extends Component {
                           <div>
                             <Graph graphData={graphData} coinName={coinNameArray[1]} />
 
-                            <button onClick={() => { onDelete(coinNameArray[1]) }} >Delete</button>
+                            <Button variant="outline-danger" onClick={() => { onDelete(coinNameArray[0]) }} >Delete</Button>
                           </div>
                         </Card.Body>
                       </Accordion.Collapse>
@@ -177,7 +179,7 @@ class Dashboard extends Component {
                           <div>
                             <Graph graphData={graphData} coinName={coinNameArray[2]} />
 
-                            <button onClick={() => { onDelete(coinNameArray[2]) }} >Delete</button>
+                            <Button variant="outline-danger" onClick={() => { onDelete(coinNameArray[0]) }} >Delete</Button>
                           </div>
                         </Card.Body>
                       </Accordion.Collapse>
@@ -201,7 +203,7 @@ class Dashboard extends Component {
                           <div>
                             <Graph graphData={graphData} coinName={coinNameArray[3]} />
 
-                            <button onClick={() => { onDelete(coinNameArray[3]) }} >Delete</button>
+                            <Button variant="outline-danger" onClick={() => { onDelete(coinNameArray[0]) }} >Delete</Button>
                           </div>
                         </Card.Body>
                       </Accordion.Collapse>
@@ -225,7 +227,7 @@ class Dashboard extends Component {
                           <div>
                             <Graph graphData={graphData} coinName={coinNameArray[4]} />
 
-                            <button onClick={() => { onDelete(coinNameArray[4]) }} >Delete</button>
+                            <Button variant="outline-danger" onClick={() => { onDelete(coinNameArray[0]) }} >Delete</Button>
                           </div>
                         </Card.Body>
                       </Accordion.Collapse>
@@ -239,37 +241,34 @@ class Dashboard extends Component {
             {/* ADD COIN */}
 
             <div>
-              <button type="button" onClick={this.showModal}>
-                +Coin
-              </button>
-            </div>
-
-            <>
-              <Button variant="primary" size="lg" block>
-                <AddCoin addCoin={this.postCoinPurchaseHistory} show={this.state.show} handleClose={this.hideModal} />
-
+              <Button variant="primary" size="lg" block type="button" onClick={this.showModal}>
+                Add Coin
               </Button>
-            </>
 
-
-          </div>
-            <div className="pieChart">
-              {/* PIE CHART */}
-              {
-                graphDataLoaded && graphData.length && coinNameArray.length ?
-                  <Container>
-                    <p>Distribuition of Investment:</p>
-
-                    <div className="totalInvGraph">
-                      <PieChart graphData={graphData} coinNameArray={coinNameArray} />
-                    </div>
-
-
-                  </Container>
-                  : <div></div>
-              }
+              <div >
+                <AddCoin addCoin={this.postCoinPurchaseHistory} show={this.state.show} handleClose={this.hideModal} />
+              </div>
             </div>
-          </div>
+          </Col>
+
+
+          <Col xs lg="6" className="pieChart">
+            {/* PIE CHART */}
+            {
+              graphDataLoaded && graphData.length && coinNameArray.length ?
+                <Container>
+                  <p className="headPieChart">Investment Distribution:</p>
+
+                  <div className="totalInvGraph">
+                    <PieChart graphData={graphData} coinNameArray={coinNameArray} />
+                  </div>
+
+                </Container>
+                : <div></div>
+            }
+          </Col>
+
+        </div>
 
       </div >
     )

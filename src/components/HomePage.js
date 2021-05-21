@@ -121,20 +121,20 @@ class HomePage extends Component {
                         <Accordion >
                             <Row className="homePageAcordeon">
                                 <Col>
-                                    <label htmlFor="name">CryptoCurrency Name:</label>
+                                    <label className="textLabel" htmlFor="name">CryptoCurrency:</label>
                                     <Form.Control placeholder="'bitcoin'" onChange={this.handleGrowthName} value={this.state.growth.name} />
                                 </Col>
                                 <Col>
-                                    <label htmlFor="name">Amount Invested:</label>
+                                    <label className="textLabel" htmlFor="name">Amount Invested:</label>
                                     <Form.Control placeholder=" '2000' " onChange={this.handleGrowthAmountInvested} value={this.state.growth.amountInvested} />
                                 </Col>
                                 <Col>
-                                    <label htmlFor="name">Date of Investment:</label>
+                                    <label className="textLabel" htmlFor="name">Date of Investment:</label>
                                     <Form.Control placeholder="'10-03-2016'" onChange={this.handleGrowthPurchaseDate} value={this.state.growth.purchaseDate} />
                                 </Col>
 
                                 <Col>
-                                    <label htmlFor="name">Currency Used:</label>
+                                    <label className="textLabel" htmlFor="name">Currency Used:</label>
                                     <Form.Control placeholder="'eur'" onChange={this.handleGrowthCurrencyUsed} value={this.state.growth.currencyUsed} />
                                 </Col>
                                 <Col>
@@ -148,11 +148,11 @@ class HomePage extends Component {
                                 <Accordion.Collapse eventKey="0">
                                     <Card.Body>
 
-                                        <Col>
-                                            <p className="textValue">Today's Value:</p>
-                                            {
+                                        <Col className="textValue">
+
+                                            <p className="textValue">Today's Value: €</p>           {
                                                 amountGrowth > 0 ?
-                                                    <Col>
+                                                    <Col className="textValue">
                                                         {amountGrowth}
                                                     </Col>
                                                     :

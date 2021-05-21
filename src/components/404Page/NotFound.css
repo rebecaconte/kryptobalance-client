@@ -1,0 +1,33 @@
+/**** NOT FOUND PAGE ****/
+
+.notFoundBG{
+    height: 95vh;
+    color: #ffffff;
+    background-color: #0e0e0e;
+    align-items: center;
+    align-self: center;
+    padding-left: 180px;
+}
+
+.header{
+    align-items: center;  
+    font-size: 25px;   
+}
+
+.phrase{
+    justify-content: center;
+    text-size-adjust: 20px;
+    padding-top: 20px;
+    font-size: 15px;
+    
+}
+.textContainer{ 
+    align-items: center;
+    flex-direction: column;
+    padding-top: 20%;
+    padding-left: 60%em; 
+}
+
+.homeBtn{
+    margin-top: 1em;
+}

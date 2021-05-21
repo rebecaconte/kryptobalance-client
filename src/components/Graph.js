@@ -23,12 +23,12 @@ class Graph extends Component {
 
   buildGraph = () => {
     const { graphData, handleAmountGrowth } = this.props
-    
+
     const coinAmount = graphData.amountInvested / graphData[0][1];
     let array = [];
 
     for (let i = 0; i < graphData.length; i++) {
-      
+
       const coinPrice = graphData[i][1];
       const total = coinAmount * coinPrice;
       const date = new Date(graphData[i][0]).toLocaleDateString("en-US");
@@ -37,7 +37,7 @@ class Graph extends Component {
         CoinAmount: coinAmount,
         Total: total,
         date: date
-      });    
+      });
     }
 
     this.setState({
@@ -48,13 +48,13 @@ class Graph extends Component {
   }
 
   componentDidMount() {
-      this.buildGraph();
+    this.buildGraph();
   }
 
   render() {
     const { styles, dataArr } = this.state
 
-    if(!dataArr) {
+    if (!dataArr) {
       return <p>Loading Graph . . . </p>
     }
 
@@ -63,7 +63,7 @@ class Graph extends Component {
         <ResponsiveContainer height={250}>
           <AreaChart data={dataArr}>
             <XAxis dataKey={"date"} />
-            <YAxis orientation={"left"}  />
+            <YAxis orientation={"left"} />
             <YAxis yAxisId="right" orientation="right" />
 
             <Tooltip
@@ -79,7 +79,7 @@ class Graph extends Component {
               fill="#f5e942"
               yAxisId="right"
               activeDot={{ strokeWidth: 0 }}
-            />  
+            />
             <Area
               type="linear"
               dataKey="Total"
@@ -87,7 +87,7 @@ class Graph extends Component {
               fillOpacity={0.8}
               fill="#b342f5"
               activeDot={{ strokeWidth: 0 }}
-            />  
+            />
           </AreaChart>
         </ResponsiveContainer>
       </div>

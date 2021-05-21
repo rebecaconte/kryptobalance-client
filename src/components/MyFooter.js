@@ -12,7 +12,7 @@ class MyFooter extends Component {
                     </div>
 
                     <div>
-                    {/*social media icons*/}
+                        {/*social media icons*/}
                     </div>
                 </div>
             </footer>

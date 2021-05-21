@@ -52,7 +52,7 @@ class Graph extends Component {
           const date = dayjs(graphData[i].purchaseDate).format("MM/DD/YYYY");
 
           array.push({
-            CoinAmount: coinAmount,
+            Coins: coinAmount,
             TotalEur: total,
             CoinPrice: coinPrice,
             date: date
@@ -81,7 +81,7 @@ class Graph extends Component {
 
     return (
       <div>
-        <ResponsiveContainer height={250}>
+        <ResponsiveContainer height={300}>
           <AreaChart data={dataArr}>
             <XAxis dataKey={"date"} />
             <YAxis orientation={"left"} />
@@ -92,21 +92,22 @@ class Graph extends Component {
               labelStyle={styles.tooltip}
               formatter={value => `${value}`}
             />
-            <Area
-              type="linear"
-              dataKey="CoinAmount"
-              stroke="none"
-              fillOpacity={0.4}
-              fill="#55efc4"
-              yAxisId="right"
-              activeDot={{ strokeWidth: 0 }}
-            />
+            
             <Area
               type="linear"
               dataKey="TotalEur"
               stroke="none"
-              fillOpacity={0.3}
+              fillOpacity={0.2}
               fill="#f7931a"
+              activeDot={{ strokeWidth: 0 }}
+            />
+            <Area
+              type="linear"
+              dataKey="Coins"
+              stroke="none"
+              fillOpacity={0.4}
+              fill="#55efc4"
+              yAxisId="right"
               activeDot={{ strokeWidth: 0 }}
             />
             <Area

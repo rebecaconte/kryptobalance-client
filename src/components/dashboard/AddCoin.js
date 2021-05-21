@@ -23,7 +23,7 @@ class AddCoin extends Component {
               <Modal.Body className="modalTitle" >
 
                 <Form.Group >
-                  <label  htmlFor="name">CryptoCurrency Name:</label>
+                  <label htmlFor="name">CryptoCurrency Name:</label>
                   <Form.Control className="modalInput" name="name" size="sm" type="text" placeholder=" 'bitcoin' " />
                 </Form.Group>
 
@@ -34,12 +34,12 @@ class AddCoin extends Component {
 
                 <Form.Group className="modalText">
                   <label className="modalTitle" htmlFor="amountInvested">Amount of Money Invested:</label>
-                  <Form.Control  className="modalInput" name="amountInvested" size="sm" type="text" placeholder=" '400'" />
+                  <Form.Control className="modalInput" name="amountInvested" size="sm" type="text" placeholder=" '400'" />
                 </Form.Group>
 
                 <Form.Group className="modalText">
                   <label className="modalTitle" htmlFor="currencyUsed">Currency Used:</label>
-                  <Form.Control  className="modalInput" name="currencyUsed" size="sm" type="text" placeholder=" 'eur' " />
+                  <Form.Control className="modalInput" name="currencyUsed" size="sm" type="text" placeholder=" 'eur' " />
                 </Form.Group>
 
                 <p className="modalText text-muted"> Note: Please insert a second purchase or a simulation of '0' in today's date for the Graphic comparison!</p>
@@ -47,9 +47,9 @@ class AddCoin extends Component {
               </Modal.Body>
 
               <Modal.Footer >
-                
+
                 <Button type="button" onClick={handleClose} variant="secondary">Close</Button>
-                <Button type="submit"  onClick={handleClose} variant="primary">Submit</Button>
+                <Button type="submit" onClick={handleClose} variant="primary">Submit</Button>
               </Modal.Footer>
             </Modal.Dialog>
 

@@ -57,7 +57,7 @@ body {
 
 .linksDropDown{
   color:#000000;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .linksDropDown:hover {
@@ -75,7 +75,7 @@ body {
   text-align: center;
   height: 60px;
   line-height: 60px;
-  background-color: #000000;
+  background-color: #0e0e0e;
   text-align: center;
   position:fixed
 }
@@ -83,6 +83,10 @@ body {
 .text-footer {
   margin-right: 40px;
   color:white;
+}
+
+.text-muted {
+  text-decoration: none;
 }
 
 /**** ABOUT PAGE ****/
@@ -94,19 +98,19 @@ body {
 }
 
 .logoAboutPage{
-  margin-right: 90px;
+  margin-right: 50px;
   display: flex;
-  justify-content: flex-start 
+
 }
 
 .logoAPage{
-  width: 225px;
-  height: 200px;
+  width: 280px;
+  height: 260px;
   margin-left: 80px;
 }
 
-.aboutPageFirst{
-  margin-top: 40px;
+.email{
+  color: green;
 }
 
 .linksAboutPage{
@@ -129,19 +133,19 @@ body {
   display: flex;
   flex-direction: column;
   margin-left: 100px;
-  margin-top: 20px;
+  
 }
 
 .infoAboutUs{
-  margin-top: 30px;;
+  margin-top: 20px;;
 }
 
 
 /**** HOME PAGE ****/
 
 .logoHPage{
-  width: 150px;
-  height: 135px;
+  width: 250px;
+  height: 200px;
 }
 
 .alertMessage {
@@ -183,11 +187,15 @@ body {
   margin-left: 8em;
 }
 
-
-
+.textLabel{
+  color: black;
+  font-size: 12px;
+}
 
 .textValue{
-  font-size: 20px;
+  font-size: 30px;
+  border: #000000;
+  display: flex;
 }
 
 /**** DASHBOARD ****/
@@ -196,18 +204,28 @@ body {
   display: flex;
   flex-direction: row;
   align-content: center;
-  align-items: center;
   flex-flow: row wrap;
   justify-content: space-around;
   align-items: flex-start;
+  margin-top: 30px;
 }
 
 .pieChart{
-  margin-right: 30px;
+  margin-right: 30px ;
+}
+
+.headPieChart{
+  margin-left: 15px;
+  margin-top: 20px;
+  font-size: 22px;
+  border: #000000;
+  justify-content: center;
+  color: red;
 }
 
 .dashboardAccordeon{
   width: 600px;
+  margin-left: 30px;
 }
 
 .totalInvGraph{
@@ -255,7 +273,10 @@ body {
   color: black;
 }
 
-
+.buttonEditProfile{
+  display: flex;
+  flex-direction: row;
+}
 
 /*** SIGN IN and UP ****/
 
@@ -276,8 +297,8 @@ body {
 }
 
 .logoSign{
-  width: 150px;
-  height: 150px;
+  width: 250px;
+  height: 200px;
   margin-top: 50px;
   margin-bottom: 10px;
 }
@@ -286,3 +307,5 @@ body {
   width: 500px;
   align-self: center;
 }
+
+

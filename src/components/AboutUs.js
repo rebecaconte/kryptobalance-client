@@ -9,12 +9,10 @@ class AboutUs extends Component {
             <div  >
                 <Col className="aboutPage" >
 
-                    <div className="aboutPageFirst">
-                        <div className="linksAboutPage ">
-                            <Link className="spaceLinks" to="/signin">Sign in</Link>
-                            <div className="spaceLinks"> | </div>
-                            <Link className="spaceLinks" to="/signup">Sign up</Link>
-                        </div>
+                    <div className="linksAboutPage ">
+                        <Link className="spaceLinks" to="/signin">Sign in</Link>
+                        <div className="spaceLinks"> | </div>
+                        <Link className="spaceLinks" to="/signup">Sign up</Link>
                     </div>
 
                     <div className="aboutPage">
@@ -34,7 +32,7 @@ class AboutUs extends Component {
                         <div className="infoAboutUs">
                             <h2>Contact us:</h2>
                             <p> Keep in touch! Write us an email with doubts, suggestions. Anything! </p>
-                            <p>kryptobalanceproject@gmail.com</p>
+                            <p className="email">kryptobalanceproject@gmail.com</p>
                         </div>
                     </Col>
 
